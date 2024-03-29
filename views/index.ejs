@@ -1,4 +1,5 @@
 <main>
+  
     <article>
       <section class="hero text-center" aria-label="home" id="home">
 
@@ -279,8 +280,8 @@
             <h2 class="headline-1 section-title">Lobster Tortellini</h2>
 
             <p class="section-text">
-              Lorem Ipsum is simply dummy text of the printingand typesetting industry lorem Ipsum has been the
-              industrys standard dummy text ever since the when an unknown printer took a galley of type.
+              Savor the exquisite flavors of succulent lobster encased in delicate tortellini, creating a culinary masterpiece that tantalizes the taste buds with every bite.
+            
             </p>
 
             <div class="wrapper">
@@ -312,7 +313,7 @@
         - #MENU
       -->
 
-      <section class="section menu" aria-label="menu-label" id="menu">
+      <section class="section menu" aria-label="menu-label" id="menu"  ng-app="myApp" ng-controller="CounterController">
         <div class="container">
 
           <p class="section-subtitle text-center label-2">Special Selection</p>
@@ -345,6 +346,14 @@
                     Tomatoes, green bell pepper, sliced cucumber onion, olives, and feta cheese.
                   </p>
 
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[0] }}</div>
+                    <button class="btn" ng-click="incrementCounter(0)">+</button>
+                    <button class="btn" ng-click="decrementCounter(0)">-</button>
+                  </div>
+                  
+                  <div class="error-message" ng-show="errorMessage[0]">{{ errorMessage[0] }}</div>
+
                 </div>
 
               </div>
@@ -372,6 +381,13 @@
                     Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
                   </p>
 
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[1] }}</div>
+                    <button class="btn" ng-click="incrementCounter(1)">+</button>
+                    <button class="btn" ng-click="decrementCounter(1)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[1]">{{ errorMessage[1] }}</div>
+
                 </div>
 
               </div>
@@ -398,6 +414,13 @@
                   <p class="card-text label-1">
                     Typesetting industry lorem Lorem Ipsum is simply dummy text of the priand.
                   </p>
+
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[2] }}</div>
+                    <button class="btn" ng-click="incrementCounter(2)">+</button>
+                    <button class="btn" ng-click="decrementCounter(2)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[2]">{{ errorMessage[2] }}</div>
 
                 </div>
 
@@ -428,6 +451,13 @@
                     Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices.
                   </p>
 
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[3] }}</div>
+                    <button class="btn" ng-click="incrementCounter(3)" >+</button>
+                    <button class="btn" ng-click="decrementCounter(3)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[3]">{{ errorMessage[3] }}</div>
+
                 </div>
 
               </div>
@@ -454,6 +484,13 @@
                   <p class="card-text label-1">
                     Avocados with crab meat, red onion, crab salad stuffed red bell pepper and green bell pepper.
                   </p>
+
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[4] }}</div>
+                    <button class="btn" ng-click="incrementCounter(4)">+</button>
+                    <button class="btn" ng-click="decrementCounter(4)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[4]">{{ errorMessage[4] }}</div>
 
                 </div>
 
@@ -482,16 +519,261 @@
                     Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
                   </p>
 
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[5] }}</div>
+                    <button class="btn" ng-click="incrementCounter(5)">+</button>
+                    <button class="btn" ng-click="decrementCounter(5)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[5]">{{ errorMessage[5] }}</div>
+
                 </div>
 
               </div>
             </li>
+
+            <li>
+              <div class="menu-card hover:card">
+                <figure class="card-banner img-holder" style="--width: 100px; --height: 100px;">
+                  <img src="/images/alfredo.jpeg" width="100px" height="100px" loading="lazy" alt="Alfredo"
+                    class="img-cover">
+                </figure>
+                <div>
+                  <div class="title-wrapper">
+                    <h3 class="title-3">
+                      <a href="#" class="card-title">Alfredo</a>
+                    </h3>
+                    <span class="span title-2">$22.00</span>
+                  </div>
+                  <p class="card-text label-1">
+                    Indulge in the creamy richness of Alfredo, a classic pasta dish featuring succulent chicken or shrimp bathed in a velvety Parmesan sauce.
+                  </p>
+
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[6] }}</div>
+                    <button class="btn" ng-click="incrementCounter(6)">+</button>
+                    <button class="btn" ng-click="decrementCounter(6)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[6]">{{ errorMessage[6] }}</div>
+
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="menu-card hover:card">
+                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                  <img src="/images/grilled salmon.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                    class="img-cover">
+                </figure>
+                <div>
+                  <div class="title-wrapper">
+                    <h3 class="title-3">
+                      <a href="#" class="card-title">Grilled Salmon</a>
+                    </h3>
+                    <span class="span title-2">$32.00</span>
+                  </div>
+                  <p class="card-text label-1">
+                    Delight your senses with our Grilled Salmon, expertly seasoned and charred to perfection, offering a tantalizing blend of smoky flavors and delicate flakiness.
+                  </p>
+
+                  <div class="containerPrice">
+                    <div class="total">Amount : {{ counts[7] }}</div>
+                    <button class="btn" ng-click="incrementCounter(7)">+</button>
+                    <button class="btn" ng-click="decrementCounter(7)">-</button>
+                  </div>
+                  <div class="error-message" ng-show="errorMessage[7]">{{ errorMessage[7] }}</div>
+
+                </div>
+              </div>
+            </li>
+
+          </li>
+
+          <li>
+            <div class="menu-card hover:card">
+              <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                <img src="/images/fishandchip.jpg" width="100" height="100" loading="lazy" alt="Greek Salad"
+                  class="img-cover">
+              </figure>
+              <div>
+                <div class="title-wrapper">
+                  <h3 class="title-3">
+                    <a href="#" class="card-title">Fish and Chip</a>
+                  </h3>
+                  <span class="span title-2">$35.00</span>
+                </div>
+                <p class="card-text label-1">
+                  Savor the crispy golden perfection of our Fish and Chips, with tender flaky cod encased in a light, crunchy batter, served alongside a generous portion of hand-cut fries.
+                </p>
+
+                <div class="containerPrice">
+                  <div class="total">Amount : {{ counts[8] }}</div>
+                  <button class="btn" ng-click="incrementCounter(8)">+</button>
+                  <button class="btn" ng-click="decrementCounter(8)">-</button>
+                </div>
+                <div class="error-message" ng-show="errorMessage[8]">{{ errorMessage[8] }}</div>
+
+              </div>
+            </div>
+          </li>
+
+        </li>
+
+        <li>
+          <div class="menu-card hover:card">
+            <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+              <img src="/images/beer.avif" width="100" height="100" loading="lazy" alt="Greek Salad"
+                class="img-cover">
+            </figure>
+            <div>
+              <div class="title-wrapper">
+                <h3 class="title-3">
+                  <a href="#" class="card-title">Beer</a>
+                </h3>
+                <span class="span title-2">$15.00</span>
+              </div>
+              <p class="card-text label-1">
+                Quench your thirst with the crisp, refreshing taste of an ice-cold beer, perfectly chilled to complement any meal or occasion.
+              </p>
+
+              <div class="containerPrice">
+                <div class="total">Amount : {{ counts[9] }}</div>
+                <button class="btn" ng-click="incrementCounter(9)">+</button>
+                <button class="btn" ng-click="decrementCounter(9)">-</button>
+              </div>
+              <div class="error-message" ng-show="errorMessage[9]">{{ errorMessage[9] }}</div>
+
+            </div>
+          </div>
+        </li>
+
+      </li>
+
+      <li>
+        <div class="menu-card hover:card">
+          <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+            <img src="/images/raspberrysmoothie.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad"
+              class="img-cover">
+          </figure>
+          <div>
+            <div class="title-wrapper">
+              <h3 class="title-3">
+                <a href="#" class="card-title">Raspberry Smoothie</a>
+              </h3>
+              <span class="span title-2">$12.00</span>
+            </div>
+            <p class="card-text label-1">
+              Indulge your sweet tooth with our luscious Raspberry Milkshake, a creamy blend of ripe raspberries and velvety milk, topped with a dollop of whipped cream for the ultimate treat.
+            </p>
+
+            <div class="containerPrice">
+              <div class="total">Amount : {{ counts[10] }}</div>
+              <button class="btn" ng-click="incrementCounter(10)">+</button>
+              <button class="btn" ng-click="decrementCounter(10)">-</button>
+            </div>
+            <div class="error-message" ng-show="errorMessage[10]">{{ errorMessage[10] }}</div>
+
+          </div>
+        </div>
+      </li>
+
+    </li>
+
+    <li>
+      <div class="menu-card hover:card">
+        <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+          <img src="/images/cocacola.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad"
+            class="img-cover">
+        </figure>
+        <div>
+          <div class="title-wrapper">
+            <h3 class="title-3">
+              <a href="#" class="card-title">Cola</a>
+            </h3>
+            <span class="span title-2">$6.50</span>
+          </div>
+          <p class="card-text label-1">
+            Enjoy the effervescent fizz and bold taste of Coca-Cola, a timeless classic that's perfect for satisfying your craving for something sweet, bubbly, and utterly satisfying.
+          </p>
+
+          <div class="containerPrice">
+            <div class="total">Amount : {{ counts[11] }}</div>
+            <button class="btn" ng-click="incrementCounter(11)">+</button>
+            <button class="btn" ng-click="decrementCounter(11)">-</button>
+          </div>
+          <div class="error-message" ng-show="errorMessage[11]">{{ errorMessage[11] }}</div>
+
+        </div>
+      </div>
+    </li>
+
+  </li>
+
+  <li>
+    <div class="menu-card hover:card">
+      <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+        <img src="/images/water.jpg" width="100" height="100" loading="lazy" alt="Greek Salad"
+          class="img-cover">
+      </figure>
+      <div>
+        <div class="title-wrapper">
+          <h3 class="title-3">
+            <a href="#" class="card-title">Water</a>
+          </h3>
+          <span class="span title-2">$4.00</span>
+        </div>
+        <p class="card-text label-1">
+          Stay hydrated and refreshed with our pure, crystal-clear Water, served ice-cold for a revitalizing and thirst-quenching experience.
+        </p>
+
+        <div class="containerPrice">
+          <div class="total">Amount : {{ counts[12] }}</div>
+          <button class="btn" ng-click="incrementCounter(12)">+</button>
+          <button class="btn" ng-click="decrementCounter(12)">-</button>
+        </div>
+        <div class="error-message" ng-show="errorMessage[12]">{{ errorMessage[12] }}</div>
+
+      </div>
+    </div>
+  </li>
+
+</li>
+
+<li>
+  <div class="menu-card hover:card">
+    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+      <img src="/images/orangejuice.jpg" width="100" height="100" loading="lazy" alt="Greek Salad"
+        class="img-cover">
+    </figure>
+    <div>
+      <div class="title-wrapper">
+        <h3 class="title-3">
+          <a href="#" class="card-title">Orange Juice</a>
+        </h3>
+        <span class="span title-2">$10.00</span>
+      </div>
+      <p class="card-text label-1">
+        Start your day on a bright note with our freshly squeezed Orange Juice, bursting with vibrant citrus flavors and packed with essential vitamins for a refreshing boost.
+      </p>
+
+      <div class="containerPrice">
+        <div class="total">Amount : {{ counts[13] }}</div>
+        <button class="btn" ng-click="incrementCounter(13)">+</button>
+        <button class="btn" ng-click="decrementCounter(13)">-</button>
+      </div>
+      <div class="error-message" ng-show="errorMessage[13]">{{ errorMessage[13] }}</div>
+
+    </div>
+  </div>
+</li>
 
           </ul>
 
           <p class="menu-text text-center">
             During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
           </p>
+
+          <p class="span title-2" id="total">Total : ${{ totalHargaSemua() | number:2 }}</p>
 
           <a href="#" class="btn btn-primary">
             <span class="text text-1">View All Menu</span>
@@ -508,42 +790,36 @@
       </section>
 
 
+    <!-- Testimony -->
 
+    </section>
 
+    <section class="section testi text-center has-bg-image"
+      style="background-image: url('/images/testimonial-bg.jpg')" aria-label="testimonials">
+      <div class="container">
 
-      <!-- 
-        - #TESTIMONIALS
-      -->
+        <div class="quote">”</div>
 
-      <section class="section testi text-center has-bg-image"
-        style="background-image: url('/images/testimonial-bg.jpg')" aria-label="testimonials">
-        <div class="container">
+        <p class="headline-2 testi-text">
+          I wanted to thank you for inviting me down for that amazing dinner the other night. The food was
+          extraordinary.
+        </p>
 
-          <div class="quote">”</div>
-
-          <p class="headline-2 testi-text">
-            I wanted to thank you for inviting me down for that amazing dinner the other night. The food was
-            extraordinary.
-          </p>
-
-          <div class="wrapper">
-            <div class="separator"></div>
-            <div class="separator"></div>
-            <div class="separator"></div>
-          </div>
-
-          <div class="profile">
-            <img src="/images/testi-avatar.jpg" width="100" height="100" loading="lazy" alt="Sam Jhonson"
-              class="img">
-
-            <p class="label-2 profile-name">Sam Jhonson</p>
-          </div>
-
+        <div class="wrapper">
+          <div class="separator"></div>
+          <div class="separator"></div>
+          <div class="separator"></div>
         </div>
-      </section>
 
+        <div class="profile">
+          <img src="/images/testi-avatar.jpg" width="100" height="100" loading="lazy" alt="Sam Jhonson"
+            class="img">
 
+          <p class="label-2 profile-name">Sam Jhonson</p>
+        </div>
 
+      </div>
+    </section>
 
 
       <!-- 
@@ -855,5 +1131,45 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+angular.module('myApp', [])
+.controller('CounterController', ['$scope', function($scope) {
+  $scope.counts = [0, 0, 0, 0, 0, 0,0,0, 0, 0, 0, 0, 0,0]; // Array untuk menyimpan jumlah masing-masing item
+  $scope.errorMessage = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]; // Array untuk menyimpan pesan kesalahan masing-masing item
+  $scope.Harga = [25.50, 40.00, 10.00, 39.00, 25.00, 49.00,22.00,32.00,35.00,15.00,12.00,6.50,4.00,10.00]; // Harga masing-masing item
+
+
+    $scope.incrementCounter = function(itemIndex) {
+    if ($scope.counts[itemIndex] < 20) {
+        $scope.counts[itemIndex]++;
+        $scope.errorMessage[itemIndex] = "";
+    } else {
+        $scope.errorMessage[itemIndex] = "Pemesanan tidak bisa di atas 20";
+    }
+};
+
+$scope.decrementCounter = function(itemIndex) {
+    if ($scope.counts[itemIndex] > 0) {
+        $scope.counts[itemIndex]--;
+        $scope.errorMessage[itemIndex] = "";
+    } else {
+        $scope.errorMessage[itemIndex] = "Pemesanan tidak bisa di bawah 0";
+    }
+};
+
+$scope.totalHargaItem = function(itemIndex) {
+    return $scope.Harga[itemIndex] * $scope.counts[itemIndex];
+};
+
+$scope.totalHargaSemua = function() {
+    var total = 0;
+    for (var i = 0; i < $scope.counts.length; i++) {
+        total += $scope.totalHargaItem(i);
+    }
+    return total;
+};
+}]);
+  </script>
 
   <link rel="stylesheet" href="css/style.css">
