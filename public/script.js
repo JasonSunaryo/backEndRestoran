@@ -1,19 +1,10 @@
-'use strict';
-
-const preloader = document.querySelector("[data-preload]");
-
-window.addEventListener("load", function () {
-  preloader.classList.add("loaded");
-  document.body.classList.add("loaded");
-});
-
+"use strict";
 
 const addEventOnElements = function (elements, eventType, callback) {
   for (let i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener(eventType, callback);
   }
-}
-
+};
 
 const navbar = document.querySelector("[data-navbar]");
 const navTogglers = document.querySelectorAll("[data-nav-toggler]");
@@ -23,7 +14,7 @@ const toggleNavbar = function () {
   navbar.classList.toggle("active");
   overlay.classList.toggle("active");
   document.body.classList.toggle("nav-active");
-}
+};
 
 addEventOnElements(navTogglers, "click", toggleNavbar);
 
@@ -41,7 +32,7 @@ const hideHeader = function () {
   }
 
   lastScrollPos = window.scrollY;
-}
+};
 
 window.addEventListener("scroll", function () {
   if (window.scrollY >= 50) {
@@ -66,7 +57,7 @@ const updateSliderPos = function () {
   lastActiveSliderItem.classList.remove("active");
   heroSliderItems[currentSlidePos].classList.add("active");
   lastActiveSliderItem = heroSliderItems[currentSlidePos];
-}
+};
 
 const slideNext = function () {
   if (currentSlidePos >= heroSliderItems.length - 1) {
@@ -76,7 +67,7 @@ const slideNext = function () {
   }
 
   updateSliderPos();
-}
+};
 
 heroSliderNextBtn.addEventListener("click", slideNext);
 
@@ -88,7 +79,7 @@ const slidePrev = function () {
   }
 
   updateSliderPos();
-}
+};
 
 heroSliderPrevBtn.addEventListener("click", slidePrev);
 
@@ -98,13 +89,21 @@ const autoSlide = function () {
   autoSlideInterval = setInterval(function () {
     slideNext();
   }, 7000);
-}
+};
 
-addEventOnElements([heroSliderNextBtn, heroSliderPrevBtn], "mouseover", function () {
-  clearInterval(autoSlideInterval);
-});
+addEventOnElements(
+  [heroSliderNextBtn, heroSliderPrevBtn],
+  "mouseover",
+  function () {
+    clearInterval(autoSlideInterval);
+  }
+);
 
-addEventOnElements([heroSliderNextBtn, heroSliderPrevBtn], "mouseout", autoSlide);
+addEventOnElements(
+  [heroSliderNextBtn, heroSliderPrevBtn],
+  "mouseout",
+  autoSlide
+);
 
 window.addEventListener("load", autoSlide);
 
@@ -113,19 +112,17 @@ const parallaxItems = document.querySelectorAll("[data-parallax-item]");
 let x, y;
 
 window.addEventListener("mousemove", function (event) {
+  x = (event.clientX / window.innerWidth) * 10 - 5;
+  y = (event.clientY / window.innerHeight) * 10 - 5;
 
-  x = (event.clientX / window.innerWidth * 10) - 5;
-  y = (event.clientY / window.innerHeight * 10) - 5;
-
-  x = x - (x * 2);
-  y = y - (y * 2);
+  x = x - x * 2;
+  y = y - y * 2;
 
   for (let i = 0, len = parallaxItems.length; i < len; i++) {
     x = x * Number(parallaxItems[i].dataset.parallaxSpeed);
     y = y * Number(parallaxItems[i].dataset.parallaxSpeed);
     parallaxItems[i].style.transform = `translate3d(${x}px, ${y}px, 0px)`;
   }
-
 });
 
 // Fungsi untuk menampilkan popup
@@ -139,9 +136,9 @@ function openPopup(popupId) {
 
 // Fungsi untuk menyembunyikan popup
 function closePopup() {
-  var popups = document.querySelectorAll('.popup');
+  var popups = document.querySelectorAll(".popup");
   if (popups) {
-    popups.forEach(function(popup) {
+    popups.forEach(function (popup) {
       popup.classList.remove("active");
     });
     document.body.classList.remove("popup-active"); // Menghapus kelas 'popup-active' pada body
@@ -155,18 +152,39 @@ function togglePopup(popupId) {
 }
 
 // Menangani klik pada tombol "Sign In"
-document.getElementById("signInBtn").addEventListener("click", function(event) {
-  event.preventDefault(); // Mencegah default action dari link
-  openPopup("loginPopup"); // Menampilkan popup Sign In
-});
+document
+  .getElementById("signInBtn")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Mencegah default action dari link
+    openPopup("loginPopup"); // Menampilkan popup Sign In
+  });
 
 // Menutup popup saat mengklik di luar popup
-window.onclick = function(event) {
+window.onclick = (function (event) {
   var popups = document.querySelectorAll(".popup");
-  popups.forEach(function(popup) {
+  popups.forEach(function (popup) {
     if (event.target == popup) {
       closePopup();
     }
   });
-}
+})
 
+const search = () =>{
+  const searchbox = document.getElementById("search-item").value.toUpperCase();
+  const storeitems = document.getElementById("product-list")
+  const product = document.querySelectorAll(".product")
+  const pname = document.getElementsByTagName("h3")
+
+  for(var i=0; i<pname.length; i++){
+    let match = product[i].getElementsByTagName('h3')[0];
+    if(match){
+     let textvalue = match.textContent || match.innerHTML
+     
+     if(textvalue.toUpperCase().indexOf(searchbox)> -1){
+      product[i].style.display = "";
+     }else {
+      product[i].style.display = "none";
+     }
+    }
+  }
+}
