@@ -127,3 +127,46 @@ window.addEventListener("mousemove", function (event) {
   }
 
 });
+
+// Fungsi untuk menampilkan popup
+function openPopup(popupId) {
+  var popup = document.getElementById(popupId);
+  if (popup) {
+    popup.classList.add("active");
+    document.body.classList.add("popup-active"); // Menambah kelas 'popup-active' pada body
+  }
+}
+
+// Fungsi untuk menyembunyikan popup
+function closePopup() {
+  var popups = document.querySelectorAll('.popup');
+  if (popups) {
+    popups.forEach(function(popup) {
+      popup.classList.remove("active");
+    });
+    document.body.classList.remove("popup-active"); // Menghapus kelas 'popup-active' pada body
+  }
+}
+
+// Fungsi untuk beralih antara popup Sign In dan Register
+function togglePopup(popupId) {
+  closePopup(); // Menutup semua popup yang terbuka
+  openPopup(popupId); // Membuka popup yang dipilih
+}
+
+// Menangani klik pada tombol "Sign In"
+document.getElementById("signInBtn").addEventListener("click", function(event) {
+  event.preventDefault(); // Mencegah default action dari link
+  openPopup("loginPopup"); // Menampilkan popup Sign In
+});
+
+// Menutup popup saat mengklik di luar popup
+window.onclick = function(event) {
+  var popups = document.querySelectorAll(".popup");
+  popups.forEach(function(popup) {
+    if (event.target == popup) {
+      closePopup();
+    }
+  });
+}
+

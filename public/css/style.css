@@ -1,6 +1,5 @@
 :root{
   /* warna yang digunakan */
-  
       --gold-crayola: hsl(38, 61%, 73%);
       --quick-silver: hsla(0, 0%, 65%, 1);
       --davys-grey: hsla(30, 3%, 34%, 1);
@@ -1711,4 +1710,96 @@
     left: 0;
   }
 
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--smoky-black-1);
+  color: var(--white);
+  border-radius: var(--radius-24);
+  padding: 40px;
+  box-shadow: var(--shadow-1);
+  z-index: 3;
+  display: none;
+  max-width: 400px; /* Lebar maksimum popup */
+  width: 400px;
+}
+
+.popup.active {
+  display: block;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup h2 {
+  font-size: var(--fontSize-title-1);
+  margin-bottom: 20px;
+}
+
+.popup input[type="text"],
+.popup input[type="password"],
+.popup input[type="email"] {
+  background-color: var(--eerie-black-2);
+  color: var(--white);
+  height: 40px; /* Tinggi input field */
+  padding: 10px 15px; /* Padding input field */
+  border: 1px solid var(--white-alpha-10);
+  margin-bottom: 20px;
+  width: 100%;
+  outline: none;
+}
+
+.popup input[type="text"]::placeholder,
+.popup input[type="password"]::placeholder,
+.popup input[type="email"]::placeholder {
+  color: var(--white-alpha-20);
+}
+
+.popup button {
+  background-color: var(--gold-crayola);
+  color: var(--black);
+  font-size: var(--fontSize-label-2);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  border: none;
+  padding: 12px 20px; /* Padding tombol */
+  border-radius: var(--radius-24);
+  cursor: pointer;
+  transition: background-color var(--transition-1), color var(--transition-1);
+  margin: 0 10px; /* Jarak antara tombol */
+}
+
+.popup button:hover {
+  background-color: var(--gold-crayola);
+  color: var(--black);
+}
+
+.popup p {
+  color: var(--white);
+  margin-top: 20px;
+}
+
+.popup a {
+  color: var(--gold-crayola);
+}
+
+.popup-buttons {
+  display: flex;
+  flex-direction: column; /* Menyusun tombol secara vertikal */
+  align-items: center; /* Membuat tombol berada di tengah secara horizontal */
+  margin-top: 20px; /* Memberikan jarak di atas tombol */
+}
+
+.popup-buttons button {
+  margin: 5px;
+  width: 100%; /* Lebar tombol menjadi 100% */
+}
+
+body.popup-active {
+  overflow: hidden; /* Menonaktifkan scrolling saat popup aktif */
 }
