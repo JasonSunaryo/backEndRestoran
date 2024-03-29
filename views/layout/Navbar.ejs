@@ -1,0 +1,190 @@
+<div class="topbar">
+    <div class="container">
+
+      <address class="topbar-item">
+        <div class="icon">
+          <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+        </div>
+
+        <span class="span">
+          Restaurant St, Delicious City, London 9578, UK
+        </span>
+      </address>
+
+      <div class="separator"></div>
+
+      <div class="topbar-item item-2">
+        <div class="icon">
+          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+        </div>
+
+        <span class="span">Daily : 8.00 am to 10.00 pm</span>
+      </div>
+
+      <a href="tel:+11234567890" class="topbar-item link">
+        <div class="icon">
+          <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+        </div>
+
+        <span class="span">+1 123 456 7890</span>
+      </a>
+
+      <div class="separator"></div>
+
+      <a href="mailto:booking@restaurant.com" class="topbar-item link">
+        <div class="icon">
+          <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+        </div>
+
+        <span class="span">booking@restaurant.com</span>
+      </a>
+
+    </div>
+  </div>
+
+
+
+
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="images/logo.svg" width="160" height="50" alt="Grilli - Home">
+      </a>
+
+      <nav class="navbar" data-navbar>
+
+        <button class="close-btn" aria-label="close menu" data-nav-toggler>
+          <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <a href="#" class="logo">
+          <img src="/images/logo.svg" width="160" height="50" alt="Grilli - Home">
+        </a>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link hover-underline active">
+              <div class="separator"></div>
+
+              <span class="span">Home</span>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#menu" class="navbar-link hover-underline">
+              <div class="separator"></div>
+
+              <span class="span">Menus</span>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#about" class="navbar-link hover-underline">
+              <div class="separator"></div>
+
+              <span class="span">About Us</span>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link hover-underline">
+              <div class="separator"></div>
+
+              <span class="span">Our Chefs</span>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link hover-underline">
+              <div class="separator"></div>
+
+              <span class="span">Contact</span>
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="text-center">
+          <p class="headline-1 navbar-title">Visit Us</p>
+
+          <address class="body-4">
+            Restaurant St, Delicious City, <br>
+            London 9578, UK
+          </address>
+
+          <p class="body-4 navbar-text">Open: 9.30 am - 2.30pm</p>
+
+          <a href="mailto:booking@grilli.com" class="body-4 sidebar-link">booking@grilli.com</a>
+
+          <div class="separator"></div>
+
+          <p class="contact-label">Booking Request</p>
+
+          <a href="tel:+88123123456" class="body-1 contact-number hover-underline">
+            +88-123-123456
+          </a>
+        </div>
+
+      </nav>
+      
+      <a href="#" class="btn btn-secondary" id="signInBtn">
+        <span class="text text-1">Sign In</span>
+        <span class="text text-2" aria-hidden="true">Sign In</span>
+      </a>
+      
+      <div class="popup" id="loginPopup">
+        <div class="popup-content">
+          <h2>Sign In</h2>
+          <input type="text" placeholder="Username">
+          <input type="password" placeholder="Password">
+          <div class="popup-buttons">
+            <button onclick="login()">Login</button>
+            <button onclick="closePopup()">Close</button>
+          </div>
+          <p>Don't have an account? <a href="#" onclick="togglePopup('registerPopup')">Register</a></p>
+        </div>
+      </div>
+      
+      <div class="popup" id="registerPopup">
+        <div class="popup-content">
+          <h2>Register</h2>
+          <input type="text" placeholder="Username">
+          <input type="email" placeholder="Email">
+          <input type="password" placeholder="Password">
+          <div class="popup-buttons">
+            <button onclick="register()">Register</button>
+            <button onclick="closePopup()">Close</button>
+          </div>
+          <p>Already have an account? <a href="#" onclick="togglePopup('loginPopup')">Sign In</a></p>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+
+      <a href="#" class="btn btn-secondary">
+        <span class="text text-1">Find A Table</span>
+
+        <span class="text text-2" aria-hidden="true">Find A Table</span>
+      </a>
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+
+      <div class="overlay" data-nav-toggler data-overlay></div>
+
+    </div>
+  </header>
