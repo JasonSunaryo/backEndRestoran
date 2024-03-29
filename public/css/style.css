@@ -966,6 +966,7 @@
   .menu-card .card-banner {
     flex-shrink: 0;
     border-radius: var(--radius-24);
+    width: 100px;
   }
   
   .menu-card .card-title { transition: var(--transition-1); }
@@ -1656,7 +1657,7 @@
   }
 
   .menu .grid-list {
-    gap: 55px 200px;
+    gap: 55px 50px;
     margin-block-end: 55px;
   }
 
@@ -1711,7 +1712,6 @@
   }
 
 }
-
 .popup {
   position: fixed;
   top: 50%;
@@ -1802,4 +1802,51 @@
 
 body.popup-active {
   overflow: hidden; /* Menonaktifkan scrolling saat popup aktif */
+}
+
+
+.grid-list li {
+
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.total{
+  text-align: center;
+ height: 20px;
+}
+
+ 
+.containerPrice {
+display: flex;
+  margin-inline: auto;
+  width: 300px;
+  text-align: center;
+  margin-right: 150px;
+}
+
+.containerPrice .btn{
+padding: 5px 20px;
+margin-top: 0px;
+margin-left: 20px;
+margin-right:10px ;
+ height: 50px;
+}
+
+.containerPrice .btn:hover  {
+  background-color: var(--gold-crayola);
+  color: var(--black);
+}
+
+#total {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color:var(--gold-crayola) ;
+}
+
+.error-message {
+  color: rgb(255, 255, 255);
+  font-size: 14px;
 }
