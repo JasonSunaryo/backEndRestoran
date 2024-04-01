@@ -1911,7 +1911,7 @@ margin-right:10px ;
   align-items: center; /* Pusatkan konten di tengah */
 }
 
-.card-bannerr {
+.card-banner {
   width: 120px;
   height: 120px; /* Atur tinggi gambar */
   background-size: cover;
@@ -1934,7 +1934,6 @@ margin-right:10px ;
 .title-3 {
   margin: 0; /* Hapus margin dari elemen h3 */
   display: flex;
-  
 }
 
 .card-title {
@@ -1964,6 +1963,37 @@ margin-right:10px ;
 .btn {
   margin: 0 3px; /* Atur jarak antara tombol */
 }
+
+/* Responsif untuk resolusi layar yang lebih kecil */
+@media screen and (max-width: 768px) {
+  .grid-list2 {
+    flex-direction: column; /* Mengubah tata letak menjadi menurun ke bawah */
+    align-items: center; /* Pusatkan item di tengah */
+  }
+
+  .product {
+    width: 80%; /* Atur lebar item menu agar memenuhi lebar layar */
+  }
+
+  .card-bannerr {
+    width: 100%; /* Atur lebar gambar agar memenuhi lebar item menu */
+    height: auto; /* Atur tinggi gambar agar menyesuaikan proporsi */
+  }
+
+  .img-holder {
+    width: 100%; /* Atur lebar gambar agar memenuhi lebar item menu */
+    height: auto; /* Atur tinggi gambar agar menyesuaikan proporsi */
+  }
+}
+
+/* Aturan CSS untuk tata letak responsif */
+@media (max-width: 768px) {
+  .product {
+    width: 100%; /* Atur lebar item menu menjadi 100% saat lebar layar <= 768px */
+  }
+}
+
+
 
 #searchIcon{margin-right: 10px;
   margin-left: 10px;}
