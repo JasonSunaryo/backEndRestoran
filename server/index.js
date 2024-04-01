@@ -34,7 +34,7 @@ message: err.message,
 });
 
 // server
-const PORT = 3005
+const PORT = 3002
 app.listen(PORT, () => {
  console.log(`App running on ${PORT}`);   
 });

@@ -4,9 +4,10 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { UserOutlined } from "@ant-design/icons";
 
 const Dashboard = () => {
-    const handleContinue = () => {
-        navigate("/main.ejs");
-      };
+  const handleContinue = () => {
+    window.location.href = 'http://localhost:3012';
+};
+
 
   const { userData, logout } = useAuth();
 

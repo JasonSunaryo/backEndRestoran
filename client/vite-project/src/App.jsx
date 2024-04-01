@@ -25,7 +25,7 @@ const App = () => {
         />
         <Route
           path="/dashboard"
-          element={isAuthenticated ? <Dashboard /> :  <Navigate to="/main"/>}
+          element={isAuthenticated ? <Dashboard /> :  <Navigate to="/dashboard"/>}
         />
         
       </Routes>
