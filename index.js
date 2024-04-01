@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3013;
 
 // Mongodb
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
