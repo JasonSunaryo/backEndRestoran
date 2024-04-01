@@ -167,6 +167,50 @@ window.onclick = (function (event) {
       closePopup();
     }
   });
+
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const incrementButtons = document.querySelectorAll('.increment');
+  const decrementButtons = document.querySelectorAll('.decrement');
+  const counts = document.querySelectorAll('.count');
+
+  // Fungsi untuk menambah jumlah pesanan
+  const incrementCounter = function (index) {
+    const count = parseInt(counts[index].innerText);
+    if (count < 20) {
+      counts[index].innerText = count + 1; // Tambah jumlah pesanan
+    } else {
+      alert("You can't order more than 20."); // Tampilkan pesan kesalahan jika melebihi 20
+    }
+  };
+
+  // Fungsi untuk mengurangi jumlah pesanan
+  const decrementCounter = function (index) {
+    const count = parseInt(counts[index].innerText);
+    if (count > 0) {
+      counts[index].innerText = count - 1; // Kurangi jumlah pesanan
+    }
+  };
+
+  // Tambahkan event listener pada tombol +
+  incrementButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      const index = button.getAttribute('data-index');
+      incrementCounter(index);
+    });
+  });
+
+  // Tambahkan event listener pada tombol -
+  decrementButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      const index = button.getAttribute('data-index');
+      decrementCounter(index);
+    });
+  });
+});
+
 })
 
 const search = () =>{
@@ -188,3 +232,4 @@ const search = () =>{
     }
   }
 }
+

@@ -1,5 +1,8 @@
+
 <main>
-  
+  <%- include('layout/Header') %>
+  <%- include('layout/Navbar') %>
+
     <article>
       <section class="hero text-center" aria-label="home" id="home">
 
@@ -309,6 +312,31 @@
 
 
 
+
+<!-- 
+    - #MENU
+  -->
+
+  <section class="section menu" aria-label="menu-label" id="menu" ng-app="myApp" ng-controller="CounterController">
+    <div class="container">
+  
+      <p class="section-subtitle text-center label-2">Special Selection</p>
+      
+  
+      <h2 class="headline-1 section-title text-center">Delicious Menu</h2>
+  
+      <a href="/add">Add Menu</a>
+  
+      <% if (message) { %>
+        <div class="alert alert-dismissable fade show alert-<%= message.type %>" role="alert">
+          <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong><%= message.message %></strong>
+        </div>
+      <% } %>
+  
+      <ul class="grid-list2">
+        <% menus.forEach((menu, index) => { %>
+
       <!-- 
         - #MENU
       -->
@@ -597,33 +625,50 @@
 
           </li>
 
+
           <li class="product">
             <div class="menu-card hover:card">
-              <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                <img src="/images/fishandchip.jpg" width="100" height="100" loading="lazy" alt="Greek Salad"
-                  class="img-cover">
+              <figure class="card-bannerr img-holder" style="background-image: url('<%= menu.image %>');">
               </figure>
-              <div>
-                <div class="title-wrapper">
+              
+              <div class="menu-info flex-container">
+                <div class="title-wrapper2">
                   <h3 class="title-3">
+
+                    <div class="button-group">
+                      <a href="/edit/<%= menu._id %>" class="btn3 btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>
+                      <a href="/delete/<%= menu._id %>" class="btn3 btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></a>
+                    </div>
+                    <a href="#" class="card-title"><%= menu.name %></a>
+                  </h3>
+                  <span class="span title-2">$<%= menu.price %></span>
+
                    Fish and Chip
                   </h3>
                   <span id="Price" class="span title-2">$35.00</span>
-                </div>
-                <p class="card-text label-1">
-                  Savor the crispy golden perfection of our Fish and Chips, with tender flaky cod encased in a light, crunchy batter, served alongside a generous portion of hand-cut fries.
-                </p>
 
+                </div>
                 <div class="containerPrice">
-                  <div class="total">Amount : {{ counts[8] }}</div>
-                  <button class="btn" ng-click="incrementCounter(8)">+</button>
-                  <button class="btn" ng-click="decrementCounter(8)">-</button>
+                  <div class="total2">Amount : <span id="count<%= index %>" class="count">0</span></div>
+                  <button class="btn btn-sm increment" ng-click="incrementCounter(index)" data-index="<%= index %>">+</button>
+                  <button class="btn btn-sm decrement" ng-click="decrementCounter(index)" data-index="<%= index %>">-</button>                
                 </div>
-                <div class="error-message" ng-show="errorMessage[8]">{{ errorMessage[8] }}</div>
-
               </div>
             </div>
           </li>
+
+        <% }); %>
+      </ul>
+      
+
+      <div ng-repeat="menu in menus">
+        <div class="total2">Amount: <span id="count{{$index}}" class="count">{{menu.amount}}</span></div>
+        <button class="btn increment" ng-click="incrementCounter($index)">+</button>
+        <button class="btn decrement" ng-click="decrementCounter($index)">-</button>
+      </div>
+      
+<p class="span title-2" id="total">Total: ${{ updateTotal() | number:2 }}</p>
+
 
         </li>
 
@@ -734,12 +779,9 @@
           Stay hydrated and refreshed with our pure, crystal-clear Water, served ice-cold for a revitalizing and thirst-quenching experience.
         </p>
 
-        <div class="containerPrice">
-          <div class="total">Amount : {{ counts[12] }}</div>
-          <button class="btn" ng-click="incrementCounter(12)">+</button>
-          <button class="btn" ng-click="decrementCounter(12)">-</button>
-        </div>
-        <div class="error-message" ng-show="errorMessage[12]">{{ errorMessage[12] }}</div>
+
+      
+
 
       </div>
     </div>
@@ -771,7 +813,25 @@
       </div>
       <div class="error-message" ng-show="errorMessage[13]">{{ errorMessage[13] }}</div>
 
+
+      
+      <p class="menu-text text-center">
+        During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
+      </p>
+  
+      <a href="#" class="btn btn-primary">
+        <span class="text text-1">View All Menu</span>
+  
+        <span class="text text-2" aria-hidden="true">View All Menu</span>
+      </a>
+  
+      <img src="/images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape" class="shape shape-2 move-anim">
+      <img src="/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-3 move-anim">
+  
     </div>
+
+  </section>
+
   </div>
 </li>
 
@@ -781,21 +841,11 @@
             Open Daily : <span class="span">8:00 am</span> to <span class="span">10:00 pm</span>
           </p>
 
-          <p class="span title-2" id="total">Total : ${{ totalHargaSemua() | number:2 }}</p>
 
-          <a href="#" class="btn btn-primary">
-            <span class="text text-1">View All Menu</span>
 
-            <span class="text text-2" aria-hidden="true">View All Menu</span>
-          </a>
+  
 
-          <img src="/images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape"
-            class="shape shape-2 move-anim">
-          <img src="/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape"
-            class="shape shape-3 move-anim">
 
-        </div>
-      </section>
 
 
     <!-- Testimony -->
@@ -1130,6 +1180,7 @@
       </section>
 
     </article>
+    <%- include('layout/Footer') %>
   </main>
   <a href="#top" class="back-top-btn active" aria-label="back to top" data-back-top-btn>
     <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
