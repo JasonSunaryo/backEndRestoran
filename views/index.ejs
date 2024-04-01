@@ -335,27 +335,33 @@
   
       <ul class="grid-list2">
         <% menus.forEach((menu, index) => { %>
-        <li class="product">
-          <div class="menu-card hover:card">
-            <figure class="card-bannerr img-holder" style="background-image: url('<%= menu.image %>');">
-            </figure>
-            <div class="menu-info flex-container">
-              <div class="title-wrapper2">
-                <h3 class="title-3">
-                  <a href="#" class="card-title"><%= menu.name %></a>
-                </h3>
-                <span class="span title-2">$<%= menu.price %></span>
-              </div>
-              <div class="containerPrice">
-                <div class="total2">Amount : <span id="count<%= index %>" class="count">0</span></div>
-                <button class="btn increment" ng-click="incrementCounter(index)" data-index="<%= index %>">+</button>
-                <button class="btn decrement" ng-click="decrementCounter(index)" data-index="<%= index %>">-</button>                
+          <li class="product">
+            <div class="menu-card hover:card">
+              <figure class="card-bannerr img-holder" style="background-image: url('<%= menu.image %>');">
+              </figure>
+              
+              <div class="menu-info flex-container">
+                <div class="title-wrapper2">
+                  <h3 class="title-3">
+                    <div class="button-group">
+                      <a href="/edit/<%= menu._id %>" class="btn3 btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>
+                      <a href="/delete/<%= menu._id %>" class="btn3 btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></a>
+                    </div>
+                    <a href="#" class="card-title"><%= menu.name %></a>
+                  </h3>
+                  <span class="span title-2">$<%= menu.price %></span>
+                </div>
+                <div class="containerPrice">
+                  <div class="total2">Amount : <span id="count<%= index %>" class="count">0</span></div>
+                  <button class="btn btn-sm increment" ng-click="incrementCounter(index)" data-index="<%= index %>">+</button>
+                  <button class="btn btn-sm decrement" ng-click="decrementCounter(index)" data-index="<%= index %>">-</button>                
+                </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
         <% }); %>
       </ul>
+      
 
       <div ng-repeat="menu in menus">
         <div class="total2">Amount: <span id="count{{$index}}" class="count">{{menu.amount}}</span></div>

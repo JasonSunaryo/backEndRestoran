@@ -1933,6 +1933,8 @@ margin-right:10px ;
 
 .title-3 {
   margin: 0; /* Hapus margin dari elemen h3 */
+  display: flex;
+  
 }
 
 .card-title {
@@ -1975,3 +1977,13 @@ margin-right:10px ;
   width: 300px; 
   margin: auto; 
 }
+
+.button-group{
+  display: flex;
+  margin-right: 40px;
+}
+
+.btn3{
+  margin-right: 10px;
+}
+
