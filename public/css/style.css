@@ -1253,16 +1253,6 @@
 
 .footer-link:is(:hover, :focus-visible) { color: var(--gold-crayola); }
 
-.copyright {
-  color: var(--quick-silver);
-  line-height: var(--lineHeight-3);
-}
-
-.copyright .link {
-  display: inline;
-  color: var(--gold-crayola);
-  text-decoration: underline;
-}
 
 /*Button Back to Top */
 .back-top-btn {
