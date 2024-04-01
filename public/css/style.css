@@ -1732,6 +1732,10 @@
   display: block;
 }
 
+strong{
+  visibility: hidden;
+}
+
 .popup-content {
   text-align: center;
 }
@@ -1850,6 +1854,7 @@ margin-right:10px ;
   color: rgb(255, 255, 255);
   font-size: 14px;
 }
+
 
 /* Container styles */
 .containerr {
@@ -1987,3 +1992,16 @@ margin-right:10px ;
   margin-right: 10px;
 }
 
+=======
+#searchIcon{margin-right: 10px;
+margin-left: 10px;}
+
+#Search{
+  opacity: 0.8;
+display: flex;
+background-color: var(--gold-crayola);
+border: 2px solid #ffffff;
+ border-radius: 10px;
+ width: 300px; 
+ margin: auto; 
+}
