@@ -1850,3 +1850,128 @@ margin-right:10px ;
   color: rgb(255, 255, 255);
   font-size: 14px;
 }
+
+/* Container styles */
+.containerr {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Form container styles */
+.form-container {
+  margin-top: 20px;
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Form input styles */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: white;
+}
+
+/* Form submit button styles */
+.form-submit {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background-color: #0056b3;
+}
+
+.grid-list2 {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Pusatkan item di tengah */
+}
+
+.product {
+  width: 30%; /* Atur lebar item menu */
+  margin: 10px; /* Beri sedikit jarak antar item */
+  text-align: center; /* Pusatkan konten di dalam setiap item */
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Pusatkan konten di tengah */
+}
+
+.card-bannerr {
+  width: 120px;
+  height: 120px; /* Atur tinggi gambar */
+  background-size: cover;
+  background-position: center;
+}
+
+.menu-info {
+  margin-top: 10px; /* Beri sedikit jarak antara nama dan harga */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-wrapper2 {
+  display: flex; /* Susun konten secara horizontal */
+  justify-content: space-between; /* Pisahkan nama dan harga di ujung kanan */
+  align-items: center; /* Pusatkan vertikal konten */
+}
+
+.title-3 {
+  margin: 0; /* Hapus margin dari elemen h3 */
+}
+
+.card-title {
+  margin: 0; /* Hapus margin dari elemen a */
+}
+
+.span.title-2 {
+  margin: 0; /* Hapus margin dari elemen span */
+}
+
+.containerPrice {
+  display: flex;
+  justify-content: center; /* Pusatkan item di tengah secara horizontal */
+  align-items: center; /* Pusatkan item di tengah secara vertikal */
+  margin-top: 10px; /* Atur jarak atas dari "Amount" */
+  margin-left: 100px;
+}
+
+.total2 {
+  margin-right: 5px; /* Beri sedikit jarak antara "Amount" dan jumlah */
+}
+
+.count {
+  margin: 0; /* Hapus margin pada jumlah */
+}
+
+.btn {
+  margin: 0 3px; /* Atur jarak antara tombol */
+}
+
+#searchIcon{margin-right: 10px;
+  margin-left: 10px;}
+  
+#Search{
+  opacity: 0.8;
+  display: flex;
+  background-color: var(--gold-crayola);
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  width: 300px; 
+  margin: auto; 
+}
