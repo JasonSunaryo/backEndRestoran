@@ -32,7 +32,7 @@ router.post('/add', upload, (req,res) => {
             type: 'success',
             message: 'Menu added successfully!'
         };
-        res.redirect("/#menu");
+        res.redirect("/index");
     })
     .catch(err => {
         res.json({message: err.message, typeof: 'danger'});
@@ -40,7 +40,7 @@ router.post('/add', upload, (req,res) => {
 });
 
 // Get all menus route
-router.get('/', (req, res) =>{
+router.get('/index', (req, res) =>{
     Menu.find().exec() // Hapus callback dari exec()
     .then(menus => { // Handle hasil query di dalam .then()
         res.render('index', {
@@ -53,6 +53,19 @@ router.get('/', (req, res) =>{
     });
 });
 
+// Get all menus route
+router.get('/main', (req, res) =>{
+    Menu.find().exec() // Hapus callback dari exec()
+    .then(menus => { // Handle hasil query di dalam .then()
+        res.render('main', {
+            title: 'Home Page',
+            menus: menus, 
+        });
+    })
+    .catch(err => { // Tangani kesalahan di dalam .catch()
+        res.json({ message: err.message });
+    });
+});
 
 
 // Render add menu page route
@@ -109,7 +122,7 @@ router.post('/update/:id', upload, async (req, res) => {
             type: 'success',
             message: 'Menu updated successfully!',
         };
-        res.redirect('/#menu');
+        res.redirect("/index");
     } catch (err) {
         console.error(err);
         res.json({ message: err.message, type: 'danger' });
@@ -144,7 +157,7 @@ router.get('/delete/:id', async (req, res) => {
             type: 'info',
             message: 'Menu deleted successfully!',
         };
-        res.redirect('/#menu');
+        res.redirect("/index");
     } catch (err) {
         console.error(err);
         res.json({ message: err.message });

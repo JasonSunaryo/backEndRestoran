@@ -705,6 +705,11 @@
     overflow: hidden;
     z-index: 1;
   }
+
+  .slider-item {
+    opacity: 0.7; /* Atur opacity sesuai kebutuhan, misalnya 0.7 untuk mengurangi opacity sebesar 30% */
+  }
+  
   
   .hero .slider-item {
     position: absolute;
@@ -814,7 +819,7 @@
   
   .hero .slider-item.active .btn { animation-delay: 2s; }
   
-  /*services*/
+
   
   .service .section-title { margin-block-end: 16px; }
   
@@ -855,7 +860,6 @@
   
   .service .card-title { margin-block-end: 12px; }
   
-  /*About*/
   
   .about .section-text { margin-block: 15px 30px; }
   
@@ -912,7 +916,7 @@
   }
   
   
-  /*Special Dish*/
+
   
   .special-dish-content { padding-block: 70px; }
   
@@ -941,7 +945,9 @@
   .special-dish .btn { margin-inline: auto; }
   
   
-  /*Menu*/
+  .menu{
+    padding-top: 300px;
+  }
   
   
   .menu .section-title { margin-block-end: 40px; }
@@ -1176,7 +1182,6 @@
     margin-block-start: 40px;
   }
 
-  /*Footer*/
   .footer-top { margin-block-end: 70px; }
 
 .footer-brand {
@@ -1372,7 +1377,7 @@
 
   .about .contact-number { --fontSize-body-1: 2.4rem; }
 
-  /*Menu*/
+
   .menu-card .title-wrapper {
     display: flex;
     justify-content: flex-start;
@@ -1397,7 +1402,7 @@
     border-block: 1px solid var(--white-alpha-20);
   }
 
-  /*Event*/
+
   .event .container {
     max-width: 420px;
     margin-inline: auto;
@@ -1732,10 +1737,6 @@
   display: block;
 }
 
-strong{
-  visibility: hidden;
-}
-
 .popup-content {
   text-align: center;
 }
@@ -1855,7 +1856,6 @@ margin-right:10px ;
   font-size: 14px;
 }
 
-
 /* Container styles */
 .containerr {
   max-width: 800px;
@@ -1916,7 +1916,7 @@ margin-right:10px ;
   align-items: center; /* Pusatkan konten di tengah */
 }
 
-.card-banner {
+.card-bannerr {
   width: 120px;
   height: 120px; /* Atur tinggi gambar */
   background-size: cover;
@@ -1939,6 +1939,7 @@ margin-right:10px ;
 .title-3 {
   margin: 0; /* Hapus margin dari elemen h3 */
   display: flex;
+  
 }
 
 .card-title {
@@ -1969,37 +1970,6 @@ margin-right:10px ;
   margin: 0 3px; /* Atur jarak antara tombol */
 }
 
-/* Responsif untuk resolusi layar yang lebih kecil */
-@media screen and (max-width: 768px) {
-  .grid-list2 {
-    flex-direction: column; /* Mengubah tata letak menjadi menurun ke bawah */
-    align-items: center; /* Pusatkan item di tengah */
-  }
-
-  .product {
-    width: 80%; /* Atur lebar item menu agar memenuhi lebar layar */
-  }
-
-  .card-bannerr {
-    width: 100%; /* Atur lebar gambar agar memenuhi lebar item menu */
-    height: auto; /* Atur tinggi gambar agar menyesuaikan proporsi */
-  }
-
-  .img-holder {
-    width: 100%; /* Atur lebar gambar agar memenuhi lebar item menu */
-    height: auto; /* Atur tinggi gambar agar menyesuaikan proporsi */
-  }
-}
-
-/* Aturan CSS untuk tata letak responsif */
-@media (max-width: 768px) {
-  .product {
-    width: 100%; /* Atur lebar item menu menjadi 100% saat lebar layar <= 768px */
-  }
-}
-
-
-
 #searchIcon{margin-right: 10px;
   margin-left: 10px;}
   
@@ -2022,16 +1992,34 @@ margin-right:10px ;
   margin-right: 10px;
 }
 
-=======
-#searchIcon{margin-right: 10px;
-margin-left: 10px;}
+.topbar{
+  background-color:var(--eerie-black-3) ;
+  margin: 0;
+padding-bottom: 15px;
 
-#Search{
-  opacity: 0.8;
-display: flex;
-background-color: var(--gold-crayola);
-border: 2px solid #ffffff;
- border-radius: 10px;
- width: 300px; 
- margin: auto; 
+}
+
+.header{
+  background-color: var(--eerie-black-3);
+  margin: 0;
+padding-top: 15px;
+}
+
+.topbar, .header {
+  background-color: transparent; /* Atur latar belakang menjadi transparan pada awalnya */
+  transition: background-color 0.5s ease; /* Tambahkan transisi efek perubahan latar belakang */
+}
+
+.hero-seen .topbar, .hero-seen .header {
+  background-color: var(--eerie-black-3); /* Setel warna latar belakang setelah bagian hero dilihat */
+}
+
+.service-card .card-banner{
+  margin-right: 200px;
+  width: 200px;
+  height: 300px;
+}
+
+.service-card .card-content{
+  margin-right: 200px;
 }

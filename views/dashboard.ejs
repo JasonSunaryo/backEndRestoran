@@ -1,0 +1,10 @@
+<%- include('partials/header');  -%>
+<p>Welcome <%= user.email %></p>
+<p>Role: <%= user.role %></p> <!-- Menampilkan peran pengguna -->
+<button><a href="/logout">Log out</button>
+<% if (user.role === 'customer') { %>
+    <button><a href="/main">Continue</button>
+<% } else if (user.role === 'admin') { %>
+    <button><a href="/index">Continue</button>
+<% } %>
+<h1>This is the dashboard page</h1>
