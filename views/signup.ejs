@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+<img class="backgroundSignup" src="images/backgroundSignup.jpg" alt="background">
+<form>
+
+
+
+    <h2>Sign up</h2>
+    <label for="name">Name : </label>
+    <input type="text" name="name">
+    <div class="name error"></div>    
+    <label for="email">Email :</label>
+    <input type="text" name="email">
+    <div class="email error"></div>
+    <label for="password">Password :</label>
+    <div style="position: relative;">
+        <input type="password" name="password">
+    </div>
+    <div class="password error"></div>
+    <button type="button" class="toggle-password">Show Password</button>
+    <button>Sign up</button>
+
+</form>
+
+<script>
+    const form = document.querySelector('form');
+    const nameError = document.querySelector('.name.error');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const togglePasswordButton = form.querySelector('.toggle-password');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        nameError.textContent = "";
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        const name = form.name.value
+        const email = form.email.value;
+        const password = form.password.value;
+        try {
+            const res = await fetch("/signup", {
+                method: 'POST',
+                body: JSON.stringify({name, email, password }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+    if (data.errors.name) {
+        nameError.textContent = data.errors.name;
+    }
+    emailError.textContent = data.errors.email;
+    passwordError.textContent = data.errors.password;
+    console.log("in errors");
+    console.log(nameError.textContent);
+    console.log(emailError.textContent);
+    console.log(passwordError.textContent);
+}
+        
+            if (data.user) {
+                location.assign('/dashboard');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    });
+
+    // Fungsi untuk menampilkan atau menyembunyikan password
+    togglePasswordButton.addEventListener('click', function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePasswordButton.textContent = "Hide";
+        } else {
+            passwordInput.type = "password";
+            togglePasswordButton.textContent = "Show Password";
+        }
+    });
+</script>
+</body>
+
+</html>

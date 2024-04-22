@@ -1,0 +1,236 @@
+body{
+  margin: 20px,40px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  background: #fafafa;
+}
+
+h1,h2,h3,h4,ul,li,a,p,input,label,button{
+  font-family: 'Quicksand', sans-serif;
+  color: #444;
+}
+
+ul{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+nav ul{
+  display: flex;
+  align-items: center;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav li a{
+  text-transform: uppercase;
+  font-weight:700;
+  font-size:0.8em;
+display:block;
+padding:10px 16px;
+  letter-spacing: 2px;
+}
+
+
+.btn{
+  border-radius: 18px;
+  background:#FEE996;
+  border: 2px solid #000000;
+}
+
+form h2{
+  font-size: 2.4em;
+  font-weight: 900;
+text-align: center;
+}
+
+form {
+  position: relative; /* Membuat formulir menjadi posisi relatif */
+  z-index: 1; /* Menempatkan formulir di atas latar belakang */
+  background: rgba(255, 255, 255, 0.903); /* Warna latar belakang formulir */
+  padding: 30px;
+  margin: 50px auto;
+  width: 360px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border: 3px solid #000000;
+}
+
+input{
+padding: 10px 12px;
+border-radius: 4px;
+border: 2px solid #ddd;
+font-size: 1em;
+width: 92%;
+}
+
+
+label{
+  display: block;
+  margin: 20px 0 10px;
+}
+
+button{
+  margin-right: 12px;
+  margin-left: 12px;
+  margin-top: 30px;
+  border-radius: 18px;
+background: #FEE996;
+border:0;
+text-transform: uppercase;
+font-weight: 700;
+font-size: 0.8em;
+padding: 10px 16px;
+letter-spacing: 2px;
+border: 2px solid #000000;
+}
+
+.btn:hover{
+  background-color: #f9d440;
+}
+
+button:hover{
+  background-color: #f9d440;
+}
+
+.error{
+  color:#ff0099;
+  margin: 10px 2px;
+  font-size: 0.8em;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+}
+
+header{
+  display: flex;
+  align-items: center;
+}
+
+header img{
+  width: 250px;
+  margin-right: 40px;
+}
+
+header h2{
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+header h3{
+  font-size: 1.6rem;
+  margin-bottom:10px;
+  margin-left:2px;
+color: #999;
+}
+
+header .btn{
+  margin-top: 20px;
+  padding: 12px 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+
+.profile-container {
+  background-color: #fafafad2;
+  z-index: 10; /* Menempatkan formulir di atas latar belakang */
+  margin: auto;
+  margin-top: 120px;
+  width: 500px;
+  text-align: center;
+  margin-top: 50px; /* Jarak atas kontainer dari atas halaman */
+  border-radius: 8%;
+  border: 3px solid #000000; /* Menambahkan garis border */
+  padding: 20px; /* Menambahkan padding agar konten tidak terlalu dekat dengan border */
+}
+
+.welcome-message {
+  font-size: 24px;
+  margin-bottom: 20px; /* Jarak antara pesan selamat datang dan gambar profil */
+}
+
+.profile-image img {
+  width: 150px; /* Sesuaikan dengan lebar yang diinginkan */
+  height: 150px; /* Sesuaikan dengan tinggi yang diinginkan */
+  border-radius: 50%; /* Agar gambar menjadi lingkaran */
+  border: 2px solid #000000;
+}
+
+.buttons button {
+  display: inline;
+  border-radius: 5px; /* border radius tombol */
+  text-decoration: none; /* menghapus garis bawah dari link */
+}
+
+.buttons button a {
+  text-decoration: none; /* menghapus garis bawah dari link */
+  color: white; /* warna teks tombol */
+}
+
+.buttons button:hover {
+  background-color: #45a049; /* warna background tombol saat dihover */
+}
+
+.logout-button {
+  background-color: #f44336; /* warna background tombol logout */
+}
+
+.edit-profile-button {
+  background-color: #008CBA; /* warna background tombol edit profile */
+}
+
+.continue-button {
+  background-color: #555555; /* warna background tombol continue */
+}
+
+#delbutton{
+  margin-top: 0;
+  border: 2px solid #000000; /* Menambahkan garis border */
+  color: #ffffff;
+  background-color: #f44336; /* warna background tombol logout */
+}
+
+
+#delbutton:hover{
+  background-color: #b71206; /* warna background tombol logout */
+}
+
+
+.userimage{
+  margin-left: 100px;
+  text-align: center;
+}
+
+.backgroundSignup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Mengatur lapisan belakang */
+  opacity: 0.9; /* Mengatur opasitas latar belakang */
+}
+
+form h2{
+  margin-top: 0;
+}
+
+.container{
+  text-align: center;
+}
+#backBtn{
+  margin-left: 60px;
+}

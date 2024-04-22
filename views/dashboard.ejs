@@ -1,0 +1,19 @@
+<%- include('partials/header');  -%>
+<img class="backgroundSignup" src="images/backgroundDashboard.jpg" alt="background">
+<div class="profile-container">
+    <p class="welcome-message">Welcome <%= user.name %></p>
+    <div class="profile-image">
+        <img src="<%= user.profileImage %>" alt="Profile Image"> <!-- Menampilkan gambar profil -->
+        <p class="welcome-message">Role : <%= user.role %></p>
+    </div>
+    <div class="buttons">
+        <button class="logout-button"><a href="/logout">Log out</a></button>
+        <button class="edit-profile-button"><a href="/profile?id=<%= user._id%>">Edit Profile</a></button>
+        <% if (user.role === 'customer') { %>
+            <button class="continue-button"><a href="/main">Continue</a></button>
+        <% }  if (user.role === 'admin') { %>
+            <button class="continue-button"><a href="/index">Continue</a></button>
+        <% } %>
+    </div>
+</div>
+

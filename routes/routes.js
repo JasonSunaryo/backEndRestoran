@@ -4,6 +4,7 @@ const Menu = require('../public/menus');
 const multer = require('multer');
 const fs = require('fs');
 
+
 // image upload
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -32,7 +33,7 @@ router.post('/add', upload, (req,res) => {
             type: 'success',
             message: 'Menu added successfully!'
         };
-        res.redirect("/#menu");
+        res.redirect("/index");
     })
     .catch(err => {
         res.json({message: err.message, typeof: 'danger'});
@@ -40,7 +41,7 @@ router.post('/add', upload, (req,res) => {
 });
 
 // Get all menus route
-router.get('/', (req, res) =>{
+router.get('/index', (req, res) =>{
     Menu.find().exec() // Hapus callback dari exec()
     .then(menus => { // Handle hasil query di dalam .then()
         res.render('index', {
@@ -66,7 +67,7 @@ router.get("/edit/:id", async (req, res) => {
         const id = req.params.id;
         const menu = await Menu.findById(id);
         if (!menu) {
-            return res.redirect("/");
+            return res.redirect("/index");
         }
         res.render("edit_menus", {
             title: "Edit Menu",
@@ -74,7 +75,7 @@ router.get("/edit/:id", async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        res.redirect("/");
+        res.redirect("/index");
     }
 });
 

@@ -1,0 +1,178 @@
+<%- include('partials/header');  -%>
+<button class="btn2" id="backBtn"><a href="/"  >Back</a></button>
+<img class="backgroundSignup" src="images/backgroundEdit.jpg" alt="background">
+ <form action="/users/<%= user._id %>/updateName" method="POST">
+    <p class="welcome-message">Username : <%= user.name %></p>
+    <input type="text" name="name" value="<%= user.name %>">
+    <div class="container">
+    <button class="btn2" type="submit">Change name</button>
+</div>
+</form>
+
+<form id="change-password-form" action="/users/<%= user._id %>/changePassword" method="POST">
+    <input type="password" name="oldPassword" placeholder="Old Password">
+    <input type="password" name="newPassword" placeholder="New Password">
+    <div class="container">
+        <button type="button" class="toggle-password">Show Password</button>
+        <button class="btn2" type="submit">Change Password</button>
+      </div>
+   
+</form>
+
+
+<form id="change-profile-image-form" action="/users/<%= user._id %>/changeProfileImage" method="POST" enctype="multipart/form-data">
+    <div class="profile-image">
+        <img class="userimage" src="<%= user.profileImage %>" alt="Profile Image"> <!-- Menampilkan gambar profil -->
+
+    </div>
+    <input type="file" name="profileImage" accept="image/*">
+    <div class="container">
+        <button class="btn2" type="submit">Change Profile Image</button>
+      </div>
+      
+ 
+    
+</form>
+
+
+<form id="delete-form" action="/users/<%= user._id %>/delete" method="POST">
+    <div class="container">
+        <button class="btn2" id="delbutton"type="submit">Delete Account</button>
+      </div>
+</form>
+
+<script>
+    const userId = '<%= user._id %>'; // Definisikan userId
+    
+    // Buat permintaan fetch ketika formulir disubmit
+    document.querySelector('form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Mendapatkan nilai yang dimasukkan oleh pengguna setelah formulir disubmit
+        const newName = document.querySelector('input[name="name"]').value;
+        
+        try {
+            const response = await fetch(`/users/${userId}/updateName?newName=${newName}`, {
+                method: 'POST',
+                // Other options like headers, body, etc.
+            });
+
+            // Periksa apakah respons berhasil
+            if (response.ok) {
+                // Muat ulang halaman
+                window.location.reload();
+            } else {
+                // Handle response jika diperlukan
+                console.error('Failed to update name. Status:', response.status);
+            }
+            
+        } catch (error) {
+            console.error('Error updating name:', error);
+            // Handle error jika diperlukan
+        }
+    })
+
+    document.getElementById('delete-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+        
+        if (confirmation) {
+            try {
+                const response = await fetch(`/users/${userId}/delete`, {
+                    method: 'DELETE',
+                    // Other options like headers, body, etc.
+                });
+
+                // Periksa apakah respons berhasil
+                if (response.ok) {
+                    // Hapus cookie JWT
+                    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    // Redirect ke halaman sign in
+                    window.location.href = '/login';
+                } else {
+                    // Handle response jika diperlukan
+                    console.error('Failed to delete account. Status:', response.status);
+                }
+                
+            } catch (error) {
+                console.error('Error deleting account:', error);
+                // Handle error jika diperlukan
+            }
+        } else {
+            // Jika pengguna membatalkan penghapusan, tidak ada yang perlu dilakukan
+            console.log("Account deletion canceled.");
+        }
+    });
+
+    document.getElementById('change-profile-image-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData();
+    formData.append('profileImage', document.querySelector('input[name="profileImage"]').files[0]);
+    
+    try {
+        const response = await fetch(`/users/${userId}/changeProfileImage`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        // Periksa apakah respons berhasil
+        if (response.ok) {
+            // Muat ulang halaman
+            window.location.reload();
+        } else {
+            // Handle response jika diperlukan
+            console.error('Failed to change profile image. Status:', response.status);
+        }
+        
+    } catch (error) {
+        console.error('Error changing profile image:', error);
+        // Handle error jika diperlukan
+    }
+});
+
+document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const oldPassword = document.querySelector('input[name="oldPassword"]').value;
+    const newPassword = document.querySelector('input[name="newPassword"]').value;
+    
+    try {
+        const response = await fetch(`/users/${userId}/changePassword`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ oldPassword, newPassword }),
+        });
+
+        if (response.ok) {
+            // If the response is successful, reload the page
+            window.location.reload();
+        } else {
+            // If the response is not successful, parse the error response
+            const data = await response.json();
+            if (data.errors && data.errors.password) {
+                // If there is an error related to the password, display it
+                document.getElementById('password-error').textContent = data.errors.password;
+            } else {
+                // If there is no specific password error, log the response status
+                console.error('Failed to change password. Status:', response.status);
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error changing password:', error);
+        // Handle other errors if necessary
+    }
+});
+
+
+    
+</script>
+
+
+
+</body>
+</html>

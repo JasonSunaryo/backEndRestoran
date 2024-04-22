@@ -2,13 +2,24 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const { requireAuth, checkUser } = require("./middlewares/authMiddlewares");
+const jwt = require("jsonwebtoken");
+
+const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
-const PORT = process.env.PORT || 3013;
+const PORT = process.env.PORT || 3015;
+
+app.use(bodyParser.json());
+app.use(authRoutes);
+app.use(cookieParser());
+app.use(express.json());
 
 // Mongodb
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -32,10 +43,34 @@ app.get('/search', async (req, res) => {
     }
 });
 
+
+app.get("*", checkUser);
+
+app.get("/", (req, res) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, "secret", (err, decodedToken) => {
+      if (err) {
+        res.render("login");
+      } else {
+        res.render("dashboard");
+      }
+    });
+  } else {
+    res.render("login");
+  }
+});
+
+app.get("/dashboard", requireAuth, (req, res) => {
+  res.render("dashboard");
+});
+
+
+
 // Middlewares
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(express.static("uploads"));
+app.use(express.static("uploads"))
 
 app.use(
     session({
@@ -60,8 +95,16 @@ app.use("", require("./routes/routes"));
 app.use(expressLayouts);
 app.use(express.static('public'));
 
-app.get('/', (req,res) => {
-    res.render('index.ejs', {title:'Document',layout : 'MainLayout.ejs'});
+app.get('/main', requireAuth, (req,res) => {
+    res.render('main.ejs', {title:'Document',layout : 'MainLayout.ejs'});
+});
+
+app.get('/index', requireAuth, (req, res) => {
+  res.render('index.ejs', {title:'Document',layout : 'MainLayout.ejs'});
+});
+
+app.get('/profile', requireAuth, (req, res) => {
+  res.render('edit_profile.ejs', {title:'Document',layout : 'edit_profile.ejs'});
 });
 
 app.listen(PORT, () => {
