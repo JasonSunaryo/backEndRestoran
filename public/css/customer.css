@@ -348,7 +348,6 @@
     .bg-black-10 { background-color: var(--smoky-black-2); }
     
     .grid-list {
-        width: 1500px;
       display: grid;
       gap: 40px;
     }
@@ -1928,3 +1927,28 @@
   .btn {
     margin: 0 3px; /* Atur jarak antara tombol */
   }
+
+  .suggest {
+    width: 900px;
+    padding-left: 500px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  color: white;
+}
+
+

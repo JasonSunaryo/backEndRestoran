@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Menu = require('../public/menus');
+const Menu = require('../models/menus');
+const Suggestion = require('../models/suggestions');
 const multer = require('multer');
 const fs = require('fs');
+
 
 // image upload
 var storage = multer.diskStorage({
@@ -22,7 +24,6 @@ var upload = multer({
 router.post('/add', upload, (req,res) => {
     const menu = new Menu({
         name: req.body.name,
-        ingredient: req.body.ingredient,
         price: req.body.price,
         image: req.file.filename,
     });
@@ -40,12 +41,14 @@ router.post('/add', upload, (req,res) => {
 });
 
 // Get all menus route
-router.get('/index', (req, res) =>{
+router.get('/index', async (req, res) =>{
+    const suggestions = await Suggestion.find();
     Menu.find().exec() // Hapus callback dari exec()
     .then(menus => { // Handle hasil query di dalam .then()
         res.render('index', {
             title: 'Home Page',
-            menus: menus, 
+            menus: menus,
+            suggestions:suggestions 
         });
     })
     .catch(err => { // Tangani kesalahan di dalam .catch()
@@ -164,6 +167,21 @@ router.get('/delete/:id', async (req, res) => {
     }
 });
 
-
+// Route untuk menambahkan feedback ke database
+router.post('/feedback', async (req, res) => {
+    try {
+        const newSuggestion = new Suggestion({
+            feedback: req.body.feedback
+        });
+        await newSuggestion.save();
+        req.session.message = {
+            type: 'success',
+            message: 'Feedback added successfully!'
+        };
+        res.redirect("/main");
+    } catch (error) {
+        res.json({ message: error.message, type: 'danger' });
+    }
+});
 
 module.exports = router;

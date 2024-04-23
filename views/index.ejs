@@ -44,11 +44,6 @@
                   </h3>
                   <span class="span title-2">$<%= menu.price %></span>
                 </div>
-                <div class="containerPrice">
-                  <div class="total2">Amount : <span id="count<%= index %>" class="count">0</span></div>
-                  <button class="btn btn-sm increment" ng-click="incrementCounter(index)" data-index="<%= index %>">+</button>
-                  <button class="btn btn-sm decrement" ng-click="decrementCounter(index)" data-index="<%= index %>">-</button>                
-                </div>
               </div>
             </div>
           </li>
@@ -62,6 +57,11 @@
     </div>
   </section>
 
+  <h1>Feedback Suggestions</h1>
+  <ul>
+      <% suggestions.forEach(suggestion => { %>
+          <li><%= suggestion.feedback %></li>
+      <% }); %>
 
     <%- include('layout/Footer') %>
   </main>

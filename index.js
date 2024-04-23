@@ -32,7 +32,8 @@ db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("connected to the database"));
 
 // Model MongoDB
-const Item = require('./public/menus');
+const Item = require('./models/menus');
+const suggestions = require('./models/suggestions');
 
 // Endpoint untuk pencarian
 app.get('/search', async (req, res) => {
@@ -101,11 +102,11 @@ app.use(expressLayouts);
 app.use(express.static('public'));
 
 app.get('/main', requireAuth, (req,res) => {
-    res.render('main.ejs', {title:'Document',layout : 'MainLayout.ejs'});
+    res.render('main.ejs', {title:'Document',layout : 'MainLayout.ejs', suggestions:req.body.suggestions});
 });
 
 app.get('/index', requireAuth, (req, res) => {
-  res.render('index.ejs', {title:'Document',layout : 'MainLayout.ejs'});
+  res.render('index.ejs', {title:'Document',layout : 'MainLayout.ejs',suggestions:suggestions});
 });
 
 app.listen(PORT, () => {

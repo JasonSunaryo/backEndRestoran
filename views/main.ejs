@@ -266,7 +266,7 @@
         - #SPECIAL DISH
       -->
 
-      <section class="special-dish text-center" aria-labelledby="dish-label">
+      <section id="special" class="special-dish text-center" aria-labelledby="dish-label">
 
         <div class="special-dish-banner">
           <img src="/images/special-dish-banner.jpg" width="940" height="900" loading="lazy" alt="special dish"
@@ -293,7 +293,7 @@
               <span class="span body-1">$20.00</span>
             </div>
 
-            <a href="#" class="btn btn-primary">
+            <a href="#menu" class="btn btn-primary">
               <span class="text text-1">View All Menu</span>
 
               <span class="text text-2" aria-hidden="true">View All Menu</span>
@@ -359,12 +359,6 @@
     <p class="menu-text text-center">
       During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
     </p>
-
-    <a href="#" class="btn btn-primary">
-      <span class="text text-1">View All Menu</span>
-
-      <span class="text text-2" aria-hidden="true">View All Menu</span>
-    </a>
 
     <img src="/images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape" class="shape shape-2 move-anim">
     <img src="/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-3 move-anim">
@@ -696,14 +690,19 @@
 
           </ul>
 
-          <a href="#" class="btn btn-primary">
-            <span class="text text-1">View Our Blog</span>
-
-            <span class="text text-2" aria-hidden="true">View Our Blog</span>
-          </a>
-
         </div>
       </section>
+
+      <section class="section event bg-black-10" aria-label="event">
+        <div class="container">
+            <form action="/feedback" method="POST">
+                <label for="feedback">Feedback:</label><br>
+                <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+    
 
     </article>
   </main>
@@ -711,6 +710,7 @@
     <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
   </a>
  
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
@@ -720,3 +720,5 @@
   <link rel="stylesheet" href="css/customer.css">
   <script src="script.js"></script>
   <script src="search.js"></script>
+
+  <%- include('layout/Footer') %>
