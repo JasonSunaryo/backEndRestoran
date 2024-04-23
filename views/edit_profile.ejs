@@ -16,6 +16,7 @@
         <button type="button" class="toggle-password">Show Password</button>
         <button class="btn2" type="submit">Change Password</button>
       </div>
+
    
 </form>
 
@@ -42,6 +43,7 @@
 </form>
 
 <script>
+
     const userId = '<%= user._id %>'; // Definisikan userId
     
     // Buat permintaan fetch ketika formulir disubmit
@@ -137,7 +139,7 @@ document.getElementById('change-password-form').addEventListener('submit', async
     
     const oldPassword = document.querySelector('input[name="oldPassword"]').value;
     const newPassword = document.querySelector('input[name="newPassword"]').value;
-    
+        
     try {
         const response = await fetch(`/users/${userId}/changePassword`, {
             method: 'POST',
@@ -166,6 +168,23 @@ document.getElementById('change-password-form').addEventListener('submit', async
         console.error('Error changing password:', error);
         // Handle other errors if necessary
     }
+});
+const oldPasswordInput = document.querySelector('input[name="oldPassword"]');
+const newPasswordInput = document.querySelector('input[name="newPassword"]');
+const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+
+togglePasswordButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        if (this.textContent === "Show Password") {
+            oldPasswordInput.type = "text";
+            newPasswordInput.type = "text";
+            this.textContent = "Hide";
+        } else {
+            oldPasswordInput.type = "password";
+            newPasswordInput.type = "password";
+            this.textContent = "Show Password";
+        }
+    });
 });
 
 

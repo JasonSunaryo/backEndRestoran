@@ -945,7 +945,9 @@
   .special-dish .btn { margin-inline: auto; }
   
   
-
+  .menu{
+    padding-top: 300px;
+  }
   
   
   .menu .section-title { margin-block-end: 40px; }
@@ -2020,4 +2022,8 @@ padding-top: 15px;
 
 .service-card .card-content{
   margin-right: 200px;
+}
+
+.feedbackList{
+  text-align: center;
 }

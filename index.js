@@ -28,7 +28,8 @@ db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("connected to the database"));
 
 // Model MongoDB
-const Item = require('./public/menus');
+const Item = require('./models/menus');
+const suggestions = require('./models/suggestions');
 
 // Endpoint untuk pencarian
 app.get('/search', async (req, res) => {

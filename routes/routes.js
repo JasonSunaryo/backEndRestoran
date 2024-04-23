@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Menu = require('../public/menus');
+const Menu = require('../models/menus');
+const Suggestion = require('../models/suggestions');
 const multer = require('multer');
 const fs = require('fs');
 
@@ -23,7 +24,6 @@ var upload = multer({
 router.post('/add', upload, (req,res) => {
     const menu = new Menu({
         name: req.body.name,
-        ingredient: req.body.ingredient,
         price: req.body.price,
         image: req.file.filename,
     });
@@ -41,10 +41,26 @@ router.post('/add', upload, (req,res) => {
 });
 
 // Get all menus route
-router.get('/index', (req, res) =>{
+router.get('/index', async (req, res) =>{
+    const suggestions = await Suggestion.find();
     Menu.find().exec() // Hapus callback dari exec()
     .then(menus => { // Handle hasil query di dalam .then()
         res.render('index', {
+            title: 'Home Page',
+            menus: menus,
+            suggestions:suggestions 
+        });
+    })
+    .catch(err => { // Tangani kesalahan di dalam .catch()
+        res.json({ message: err.message });
+    });
+});
+
+// Get all menus route
+router.get('/main', (req, res) =>{
+    Menu.find().exec() // Hapus callback dari exec()
+    .then(menus => { // Handle hasil query di dalam .then()
+        res.render('main', {
             title: 'Home Page',
             menus: menus, 
         });
@@ -53,7 +69,6 @@ router.get('/index', (req, res) =>{
         res.json({ message: err.message });
     });
 });
-
 
 
 // Render add menu page route
@@ -67,7 +82,7 @@ router.get("/edit/:id", async (req, res) => {
         const id = req.params.id;
         const menu = await Menu.findById(id);
         if (!menu) {
-            return res.redirect("/index");
+            return res.redirect("/");
         }
         res.render("edit_menus", {
             title: "Edit Menu",
@@ -75,7 +90,7 @@ router.get("/edit/:id", async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        res.redirect("/index");
+        res.redirect("/");
     }
 });
 
@@ -110,7 +125,7 @@ router.post('/update/:id', upload, async (req, res) => {
             type: 'success',
             message: 'Menu updated successfully!',
         };
-        res.redirect('/#menu');
+        res.redirect("/index");
     } catch (err) {
         console.error(err);
         res.json({ message: err.message, type: 'danger' });
@@ -145,13 +160,31 @@ router.get('/delete/:id', async (req, res) => {
             type: 'info',
             message: 'Menu deleted successfully!',
         };
-        res.redirect('/#menu');
+        res.redirect("/index");
     } catch (err) {
         console.error(err);
         res.json({ message: err.message });
     }
 });
 
+// Route untuk menambahkan feedback ke database
+router.post('/feedback', async (req, res) => {
+    try {
+        const newSuggestion = new Suggestion({
+            nama: req.body.nama, // Mengambil nama dari form
+            feedback: req.body.feedback,
+            waktu_pengiriman: new Date() // Mendapatkan waktu saat ini
+        });
+        await newSuggestion.save();
+        req.session.message = {
+            type: 'success',
+            message: 'Feedback added successfully!'
+        };
+        res.redirect("/main");
+    } catch (error) {
+        res.json({ message: error.message, type: 'danger' });
+    }
+});
 
 
 module.exports = router;
