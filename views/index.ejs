@@ -40,9 +40,10 @@
                       <a href="/edit/<%= menu._id %>" class="btn3 btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>
                       <a href="/delete/<%= menu._id %>" class="btn3 btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></a>
                     </div>
-                    <a href="#" class="card-title"><%= menu.name %></a>
+                    <a href="#" class="card-title"><%= menu.name %>&nbsp</a>
                   </h3>
-                  <span class="span title-2">$<%= menu.price %></span>
+                  <br>  
+                  <span id="menuPrice"  class="span title-2">Rp <%= menu.price %></span>
                 </div>
               </div>
             </div>
@@ -56,6 +57,20 @@
   
     </div>
   </section>
+
+  <!-- Di dalam tag <ul> atau di tempat yang sesuai -->
+<% reservations.forEach(reservation => { %>
+  <li>
+      <p><strong>Name : </strong> <%= reservation.name %></p>
+      <p><strong>Phone : </strong> <%= reservation.phone %></p>
+      <p><strong>Number of Persons : </strong> <%= reservation.person %></p>
+      <p><strong>Reservation Date : </strong> <%= reservation.reservationDate.toLocaleDateString() %></p>
+      <p><strong>Reservation Time : </strong> <%= reservation.reservationTime %></p>
+      <p><strong>Message : </strong> <%= reservation.message %></p>
+      <hr>
+  </li>
+<% }); %>
+
 
   <h1 class="section-subtitle text-center label-2">Feedback Suggestions</h1>
   <ul class="feedbackList">

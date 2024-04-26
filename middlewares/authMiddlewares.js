@@ -17,10 +17,12 @@ app.use(bodyParser.json());
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
+        
         jwt.verify(token, 'secret', (err, decodedToken) => {
             if (err) {
                 res.redirect('/login');
             } else {
+                req.user = decodedToken;
                 next();
             }
         });

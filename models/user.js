@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
   profileImage: {
     type: String,
     default: "/images/user.png" 
-  }
+  },
+  reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }]
   
 });
 

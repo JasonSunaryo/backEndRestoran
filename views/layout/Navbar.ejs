@@ -1,6 +1,6 @@
 <div class="topbar">
     <div class="container">
-
+      
       <address class="topbar-item">
         <div class="icon">
           <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="images/logo.png" width="160" height="50" alt="fish - Home">
+        <img src="/images/logo.png" width="50" height="50" alt="fish - Home">
       </a>
 
       <nav class="navbar" data-navbar>
@@ -63,14 +63,12 @@
           <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
         </button>
 
-        <a href="#" class="logo">
-          <img src="/images/logo.png" width="160" height="50" alt="fish - Home">
-        </a>
+      
 
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <a href="#home" class="navbar-link hover-underline active">
+            <a href="/main#home" class="navbar-link hover-underline ">
               <div class="separator"></div>
 
               <span class="span">Home</span>
@@ -78,7 +76,7 @@
           </li>
 
           <li class="navbar-item">
-            <a href="#menu" class="navbar-link hover-underline">
+            <a href="/main#menu" class="navbar-link hover-underline ">
               <div class="separator"></div>
 
               <span class="span">Menus</span>
@@ -86,7 +84,7 @@
           </li>
 
           <li class="navbar-item">
-            <a href="#about" class="navbar-link hover-underline">
+            <a href="/main#about" class="navbar-link hover-underline">
               <div class="separator"></div>
 
               <span class="span">Special</span>
@@ -94,10 +92,10 @@
           </li>
 
           <li class="navbar-item">
-            <a href="#" class="navbar-link hover-underline">
+            <a href="/users/<%= user._id %>/reservation" class="navbar-link hover-underline">
               <div class="separator"></div>
 
-              <span class="span">About us</span>
+              <span class="span">Reservations</span>
             </a>
           </li>
 
@@ -146,3 +144,4 @@
 
     </div>
   </header>
+  

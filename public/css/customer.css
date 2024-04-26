@@ -967,6 +967,7 @@
     flex-shrink: 0;
     border-radius: var(--radius-24);
     width: 100px;
+    
   }
   
   .menu-card .card-title { transition: var(--transition-1); }
@@ -1060,6 +1061,7 @@
   }
   
   /* Reservation */
+  .reservation{margin-top: 500px;}
   
   .reservation-form { margin-block-start: -270px; }
   
@@ -1875,6 +1877,8 @@ border: 2px solid #ffffff;
 }
 
 .card-bannerr {
+  border-radius: 10px;
+  border: solid 1px;
   width: 120px;
   height: 120px; /* Atur tinggi gambar */
   background-size: cover;
@@ -1963,4 +1967,17 @@ color: white;
 
 .buttonSubmit{
   background-color: #ffffff;
+}
+
+.totalAll{
+  color: var(--gold-crayola);
+  display: inline
+}
+
+#totalAmount{
+opacity: 0;
+}
+
+#totalPrice{
+  text-align: center;
 }

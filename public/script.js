@@ -125,47 +125,51 @@ window.addEventListener("mousemove", function (event) {
   }
 });
 
-// Fungsi untuk menampilkan popup
-function openPopup(popupId) {
-  var popup = document.getElementById(popupId);
-  if (popup) {
-    popup.classList.add("active");
-    document.body.classList.add("popup-active"); // Menambah kelas 'popup-active' pada body
-  }
-}
 
-// Fungsi untuk menyembunyikan popup
-function closePopup() {
-  var popups = document.querySelectorAll(".popup");
-  if (popups) {
-    popups.forEach(function (popup) {
-      popup.classList.remove("active");
+document.addEventListener("DOMContentLoaded", function() {
+  const menus = document.querySelectorAll('.product');
+  const totalAllSpan = document.getElementById('totalAll');
+  let totalAllPrice = 0;
+
+  menus.forEach((menu, index) => {
+    const incrementBtn = menu.querySelector('.increment');
+    const decrementBtn = menu.querySelector('.decrement');
+    const countSpan = menu.querySelector(`#count${index}`);
+    const priceSpan = menu.querySelector('.span.title-2');
+    const totalPriceSpan = menu.querySelector(`#totalAmount`);
+    const price = parseFloat(priceSpan.textContent.slice(1));
+    let count = 0;
+
+    incrementBtn.addEventListener('click', function() {
+      count++;
+      countSpan.textContent = count;
+      calculateTotal();
+      calculateTotalAll();
     });
-    document.body.classList.remove("popup-active"); // Menghapus kelas 'popup-active' pada body
-  }
-}
 
-// Fungsi untuk beralih antara popup Sign In dan Register
-function togglePopup(popupId) {
-  closePopup(); // Menutup semua popup yang terbuka
-  openPopup(popupId); // Membuka popup yang dipilih
-}
+    decrementBtn.addEventListener('click', function() {
+      if (count > 0) {
+        count--;
+        countSpan.textContent = count;
+        calculateTotal();
+        calculateTotalAll();
+      }
+    });
 
-// Menangani klik pada tombol "Sign In"
-document
-  .getElementById("signInBtn")
-  .addEventListener("click", function (event) {
-    event.preventDefault(); // Mencegah default action dari link
-    openPopup("loginPopup"); // Menampilkan popup Sign In
-  });
+    function calculateTotal() {
+      const total = parseFloat(count * price);
+      totalPriceSpan.textContent = `${total}`;
+    }
 
-// Menutup popup saat mengklik di luar popup
-window.onclick = (function (event) {
-  var popups = document.querySelectorAll(".popup");
-  popups.forEach(function (popup) {
-    if (event.target == popup) {
-      closePopup();
+    function calculateTotalAll() {
+      let totalAll = 0;
+      menus.forEach((menu) => {
+        const count = parseInt(menu.querySelector('.count').textContent);
+        const price = parseFloat(menu.querySelector('.span.title-2').textContent.slice(3));
+        totalAll += count * price;
+      });
+      totalAllPrice = parseFloat(totalAll);
+      totalAllSpan.textContent = `Rp ${totalAllPrice}`;
     }
   });
-})
-
+});

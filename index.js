@@ -29,7 +29,6 @@ db.once("open", () => console.log("connected to the database"));
 
 // Model MongoDB
 const Item = require('./models/menus');
-const suggestions = require('./models/suggestions');
 
 // Endpoint untuk pencarian
 app.get('/search', async (req, res) => {
@@ -96,6 +95,7 @@ app.use("", require("./routes/routes"));
 app.use(expressLayouts);
 app.use(express.static('public'));
 
+
 app.get('/main', requireAuth, (req,res) => {
     res.render('main.ejs', {title:'Document',layout : 'MainLayout.ejs'});
 });
@@ -107,6 +107,7 @@ app.get('/index', requireAuth, (req, res) => {
 app.get('/profile', requireAuth, (req, res) => {
   res.render('edit_profile.ejs', {title:'Document',layout : 'edit_profile.ejs'});
 });
+
 
 app.listen(PORT, () => {
     console.log(`server running at http://localhost:${PORT}`);

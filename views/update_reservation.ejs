@@ -1,0 +1,42 @@
+<main>
+    <%- include('layout/Header.ejs') %>
+    <%- include('layout/Navbar.ejs') %>
+
+    <div class="container">
+        <h1 class="titleUpdateReservation">Update Reservation</h1>
+        <form action="/user/<%= user._id %>/reservation/<%= reservation._id %>/update" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="inputreservation" type="text" id="name" name="name" value="<%= reservation.name %>" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input class="inputreservation" type="text" id="phone" name="phone" value="<%= reservation.phone %>" required>
+            </div>
+            <div class="form-group">
+                <label for="person">Number of Persons:</label>
+                <input class="inputreservation" type="number" id="person" name="person" value="<%= reservation.person %>" required>
+            </div>
+            <div class="form-group">
+                <label for="reservationDate">Reservation Date:</label>
+                <input class="inputreservation" type="date" id="reservationDate" name="reservationDate" value="<%= reservation.reservationDate.toISOString().split('T')[0] %>" required>
+            </div>
+            <div class="form-group">
+                <label for="reservationTime">Reservation Time:</label>
+                <input class="inputreservation" type="time" id="reservationTime" name="reservationTime" value="<%= reservation.reservationTime %>" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea class="inputreservation" id="message" name="message" required><%= reservation.message %></textarea>
+            </div>
+            <button  type="submit" class="btn btn-secondary">
+                <span class="text text-1">Perbarui Reservasi</span>
+                <span class="text text-2" aria-hidden="true">Perbarui Reservasi</span>
+            </button>
+        </form>
+    </div>
+    
+    <%- include('layout/Footer.ejs') %>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="script.js"></script>
+</main>
