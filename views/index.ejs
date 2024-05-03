@@ -11,7 +11,6 @@
 <!-- 
     - #MENU
   -->
-
   <section class="section menu" aria-label="menu-label" id="menu" ng-app="myApp" ng-controller="CounterController">
     <div class="container">
   
@@ -26,39 +25,40 @@
         </div>
       <% } %>
   
-      <ul class="grid-list2">
-        <% menus.forEach((menu, index) => { %>
-          <li class="product">
-            <div class="menu-card hover:card">
-              <figure class="card-bannerr img-holder" style="background-image: url('<%= menu.image %>');">
-              </figure>
-              
-              <div class="menu-info flex-container">
-                <div class="title-wrapper2">
-                  <h3 class="title-3">
-                    <div class="button-group">
-                      <a href="/edit/<%= menu._id %>" class="btn3 btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>
-                      <a href="/delete/<%= menu._id %>" class="btn3 btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></a>
-                    </div>
-                    <a href="#" class="card-title"><%= menu.name %>&nbsp</a>
-                  </h3>
-                  <br>  
-                  <span id="menuPrice"  class="span title-2">Rp <%= menu.price %></span>
-                </div>
-              </div>
-            </div>
-          </li>
-        <% }); %>
-      </ul>
-      </div>
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% menus.forEach((menu, index) => { %>
+            <tr>
+              <td><img class="card-bannerr img-holder" src="<%= menu.image %>" alt="Menu Image"></td>
+              <td><%= menu.name %></td>
+              <td>Rp <%= menu.price %></td>
+              <td>
+                <a href="/edit/<%= menu._id %>" class="btn3 btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>
+                <a href="/delete/<%= menu._id %>" class="btn3 btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></a>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
       
       <img src="/images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape" class="shape shape-2 move-anim">
       <img src="/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-3 move-anim">
   
     </div>
-  </section>
+</section>
 
-  <!-- Di dalam tag <ul> atau di tempat yang sesuai -->
+  
+  <h1 class="section-subtitle text-center label-2">All Customer Reservation</h1>
+  <!-- Di dalam tag <ul> atau di tempat yang sesuai --> 
+    <ul class="feedbackList">
 <% reservations.forEach(reservation => { %>
   <li>
       <p><strong>Name : </strong> <%= reservation.name %></p>
@@ -67,23 +67,11 @@
       <p><strong>Reservation Date : </strong> <%= reservation.reservationDate.toLocaleDateString() %></p>
       <p><strong>Reservation Time : </strong> <%= reservation.reservationTime %></p>
       <p><strong>Message : </strong> <%= reservation.message %></p>
-      <hr>
+   
   </li>
+  <br>
 <% }); %>
-
-
-  <h1 class="section-subtitle text-center label-2">Feedback Suggestions</h1>
-  <ul class="feedbackList">
-      <% suggestions.forEach(suggestion => { %>
-          <li>
-              <strong>Nama:</strong> <%= suggestion.nama %><br>
-              <strong>Waktu :</strong> <%= suggestion.waktu_pengiriman.toLocaleString() %><br> <!-- Menampilkan waktu dengan format yang sesuai -->
-              <strong>Feedback:</strong> <%= suggestion.feedback %>
-          </li>
-          <br>
-      <% }); %>
-  </ul>
-  
+</ul>  
 
     <%- include('layout/Footer') %>
   </main>

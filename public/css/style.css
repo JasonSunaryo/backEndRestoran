@@ -1766,8 +1766,9 @@ margin-right:10px ;
   width: 120px;
   height: 120px; /* Atur tinggi gambar */
   background-size: cover;
-  background-position: center;
+  background-position: center center; /* Memastikan gambar berada di tengah */
 }
+
 
 .menu-info {
   margin-top: 10px; /* Beri sedikit jarak antara nama dan harga */
@@ -1836,6 +1837,7 @@ margin-right:10px ;
 
 .btn3{
   margin-right: 10px;
+  display: inline-block;
 }
 
 .topbar{
@@ -1894,4 +1896,26 @@ color: white;
 
 #menuPrice{
   display: inline;
+}
+
+.table thead tr th {
+  border-bottom: 2px solid white;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center; /* Menengahkan konten tabel */
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center; /* Menengahkan konten tabel */
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+  color: #333;
 }

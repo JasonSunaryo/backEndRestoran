@@ -560,15 +560,44 @@
         </div>
       </section>
 
-      <section class="section event bg-black-10" aria-label="event">
+      <section id="comment" class="section event bg-black-10" aria-label="event">
         <div class="container">
             <form action="/feedback" method="POST">
-                <label for="nama">Nama:</label><br>
-                <input type="text" id="nama" name="nama" required><br> <!-- Tambahkan input untuk nama -->
-                <label for="feedback">Feedback:</label><br>
+                <label for="feedback">Add Your Comment:</label><br>
                 <textarea id="feedback" name="feedback" rows="4" cols="50" required></textarea><br>
                 <button class="btn" type="submit">Submit</button>
             </form>
+    
+            <% suggestions.forEach(suggestion => { %>
+                <div class="comment">
+                    <div class="user-info">
+                        <img src="<%= user.profileImage %>" alt="Profile Image">
+                        <span class="usern"><%= user.name %></span>
+                    </div>
+                    <div class="comment-text">
+                        <p><%= suggestion.feedback %></p>
+                        <p class="waktu_pengiriman"><%= suggestion.waktu_pengiriman %></p>
+                        <form action="/feedback/<%= suggestion._id %>/edit" method="POST" class="editForm" >
+                          <div class="form-group">
+                              <label for="editedFeedback">Edit:</label>
+                              <textarea id="editedFeedback" name="editedFeedback" class="form-input"><%= suggestion.feedback %></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-sm">Save</button>
+                      </form>
+                        <div class="button-container">
+                          <!-- Tombol Delete -->
+                          <form action="/feedback/<%= suggestion._id %>/delete" method="POST" style="display: inline-block;">
+                              <button class="btn btn-sm" type="submit">Delete</button>
+                          </form>
+                      </div>
+                    </div>
+
+                </div>
+            <% }) %>
+            
+            <% if (!suggestions || suggestions.length === 0) { %>
+                <p>No comments available.</p>
+            <% } %>
         </div>
     </section>
     

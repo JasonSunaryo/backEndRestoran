@@ -61,20 +61,21 @@ router.get('/index', async (req, res) =>{
 });
 
 // Get all menus route
-router.get('/main', requireAuth, async (req, res) => {
-    try {
-        const userId = req.user._id; // Mendapatkan userId dari objek req.user
-        const menus = await Menu.find().exec();
-
-        // Render halaman main.ejs dengan data reservasi yang sesuai
+router.get('/main', async (req, res) =>{
+    const suggestions = await Suggestion.find();
+    const reservations = await Reservation.find().exec(); // Ambil semua reservasi dari database
+    Menu.find().exec() // Hapus callback dari exec()
+    .then(menus => { // Handle hasil query di dalam .then()
         res.render('main', {
-            title: 'Main Page',
-            menus: menus
+            title: 'Home Page',
+            menus: menus,
+            suggestions:suggestions,
+            reservations: reservations
         });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: err.message });
-    }
+    })
+    .catch(err => { // Tangani kesalahan di dalam .catch()
+        res.json({ message: err.message });
+    });
 });
 
 
@@ -181,7 +182,6 @@ router.get('/delete/:id', async (req, res) => {
 router.post('/feedback', async (req, res) => {
     try {
         const newSuggestion = new Suggestion({
-            nama: req.body.nama, // Mengambil nama dari form
             feedback: req.body.feedback,
             waktu_pengiriman: new Date() // Mendapatkan waktu saat ini
         });
@@ -190,9 +190,56 @@ router.post('/feedback', async (req, res) => {
             type: 'success',
             message: 'Feedback added successfully!'
         };
-        res.redirect("/main");
+        res.redirect("/main#comment");
     } catch (error) {
         res.json({ message: error.message, type: 'danger' });
+    }
+});
+
+// Delete suggestion route
+router.post('/feedback/:id/delete', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const deletedSuggestion = await Suggestion.findByIdAndDelete(id);
+
+        if (!deletedSuggestion) {
+            return res.json({ message: 'Failed to delete suggestion' });
+        }
+
+        req.session.message = {
+            type: 'info',
+            message: 'Suggestion deleted successfully!',
+        };
+        res.redirect("/main#comment");
+    } catch (err) {
+        console.error(err);
+        res.json({ message: err.message });
+    }
+});
+
+// Endpoint untuk mengedit saran
+router.post('/feedback/:id/edit', async (req, res) => {
+    const suggestionId = req.params.id;
+    const editedFeedback = req.body.editedFeedback;
+
+    try {
+        // Temukan saran yang sesuai berdasarkan ID
+        const suggestion = await Suggestion.findById(suggestionId);
+        
+        if (!suggestion) {
+            return res.status(404).json({ message: 'Suggestion not found' });
+        }
+
+        // Perbarui teks saran dengan teks yang baru
+        suggestion.feedback = editedFeedback;
+        await suggestion.save();
+
+        // Respon berhasil
+        res.redirect("/main#comment");
+    } catch (error) {
+        // Tangani kesalahan
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 

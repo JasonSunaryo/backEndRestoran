@@ -1969,6 +1969,73 @@ color: white;
   background-color: #ffffff;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info img {
+  width: 40px; /* Sesuaikan dengan ukuran yang diinginkan */
+  height: 40px; /* Sesuaikan dengan ukuran yang diinginkan */
+  border-radius: 50%; /* Untuk membuat gambar menjadi lingkaran */
+  margin-right: 10px; /* Jarak antara gambar profil dan nama pengguna */
+}
+
+.comment-text {
+  margin-top: 5px; /* Jarak antara nama pengguna dan teks komentar */
+}
+
+.comment {
+  margin-bottom: 20px; /* Jarak antara setiap komentar */
+}
+
+.user-info span {
+  color: var(--gold-crayola); /* Warna teks nama pengguna */
+}
+
+.usern {
+  font-size: 20px;
+}
+
+.button-container {
+  /* Mengatur elemen container agar konten berada dalam satu baris */
+  white-space: nowrap;
+}
+
+.edit-btn,
+.delete-btn {
+  /* Mengatur tombol menjadi inline-block untuk posisi horizontal */
+  display: inline-block;
+  color: white; /* Warna teks */
+  border: none; /* Hilangkan border */
+  font-size: 10px;
+  margin-right: 10px; /* Jarak antara tombol */
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: rgba(128, 128, 128, 0.5); /* Warna latar belakang abu transparan saat dihover */
+}
+
+.waktu_pengiriman {
+  font-size: 10px;
+}
+
+
+
+
+
+#nama {
+  width: 20%;
+  padding: 6px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  color: white;
+  }
+
+
+
 .totalAll{
   color: var(--gold-crayola);
   display: inline

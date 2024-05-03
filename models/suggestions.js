@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const suggestionSchema = new mongoose.Schema({
-    nama: {
-        type: String,
-        required: true,
-        default: 'Anonymous'
-    },
     feedback: {
         type: String,
         required: true
