@@ -60,12 +60,22 @@ router.get('/index', async (req, res) =>{
     });
 });
 
-// Get all menus route
-
 router.get('/main', async (req, res) =>{
     try {
-        const suggestions = await Suggestion.find();
+        // Dapatkan semua saran beserta pengguna yang terkait
+        const suggestions = await Suggestion.find().lean(); // Menggunakan lean() di sini
         const menus = await Menu.find().exec();
+        const userIds = suggestions.map(suggestion => suggestion.user); // Dapatkan array ID pengguna dari suggestions
+
+        // Ambil semua pengguna yang terkait dengan suggestions
+        const users = await User.find({ _id: { $in: userIds } });
+
+        // Menggabungkan data pengguna dengan setiap saran
+        const suggestionsWithUser = suggestions.map(suggestion => {
+            const user = users.find(user => user._id.toString() === suggestion.user.toString());
+            return { ...suggestion, user: user }; // Mengganti ID pengguna dengan objek pengguna
+        });
+
         const usersWithRating = await User.find({ restaurantRating: { $exists: true } });
 
         // Hitung jumlah total rating dan jumlah pengguna yang memberikan rating
@@ -78,7 +88,7 @@ router.get('/main', async (req, res) =>{
         res.render('main', {
             title: 'Home Page',
             menus: menus,
-            suggestions: suggestions,
+            suggestions: suggestionsWithUser, // Menggunakan suggestionsWithUser yang telah digabungkan dengan data pengguna
             averageRating: averageRating
         });
     } catch (error) {
@@ -187,13 +197,22 @@ router.get('/delete/:id', async (req, res) => {
 });
 
 // Route untuk menambahkan feedback ke database
-router.post('/feedback', async (req, res) => {
+router.post('/feedback/:userId', async (req, res) => {
     try {
+        const userId = req.params.userId;
+        
+        // Dapatkan pengguna yang saat ini masuk
+        const loggedInUser = await User.findById(userId);
+        
+        
+        // Buat saran baru dengan ID pengguna saat ini
         const newSuggestion = new Suggestion({
             feedback: req.body.feedback,
-            waktu_pengiriman: new Date() // Mendapatkan waktu saat ini
+            waktu_pengiriman: new Date(),
+            user: loggedInUser
         });
         await newSuggestion.save();
+        
         req.session.message = {
             type: 'success',
             message: 'Feedback added successfully!'
@@ -203,6 +222,7 @@ router.post('/feedback', async (req, res) => {
         res.json({ message: error.message, type: 'danger' });
     }
 });
+
 
 // Delete suggestion route
 router.post('/feedback/:id/delete', async (req, res) => {

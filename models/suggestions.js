@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user'); // Import model User
 
 const suggestionSchema = new mongoose.Schema({
     feedback: {
@@ -8,6 +9,10 @@ const suggestionSchema = new mongoose.Schema({
     waktu_pengiriman: {
         type: Date,
         default: Date.now
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' // Referensi ke model User
     }
 });
 
