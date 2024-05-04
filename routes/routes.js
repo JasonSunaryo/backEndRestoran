@@ -61,21 +61,29 @@ router.get('/index', async (req, res) =>{
 });
 
 // Get all menus route
+
 router.get('/main', async (req, res) =>{
-    const suggestions = await Suggestion.find();
-    const reservations = await Reservation.find().exec(); // Ambil semua reservasi dari database
-    Menu.find().exec() // Hapus callback dari exec()
-    .then(menus => { // Handle hasil query di dalam .then()
+    try {
+        const suggestions = await Suggestion.find();
+        const menus = await Menu.find().exec();
+        const usersWithRating = await User.find({ restaurantRating: { $exists: true } });
+
+        // Hitung jumlah total rating dan jumlah pengguna yang memberikan rating
+        const totalRating = usersWithRating.reduce((acc, user) => acc + user.restaurantRating, 0);
+        const numberOfUsers = usersWithRating.length;
+
+        // Hitung rata-rata rating
+        const averageRating = numberOfUsers > 0 ? totalRating / numberOfUsers : 0;
+
         res.render('main', {
             title: 'Home Page',
             menus: menus,
-            suggestions:suggestions,
-            reservations: reservations
+            suggestions: suggestions,
+            averageRating: averageRating
         });
-    })
-    .catch(err => { // Tangani kesalahan di dalam .catch()
-        res.json({ message: err.message });
-    });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 
@@ -376,6 +384,39 @@ router.post('/user/:id/reservation/:reservationId/update', requireAuth, async (r
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: err.message });
+    }
+});
+
+router.post('/restaurantRating/:userId', async (req, res) => {
+    const { userId } = req.params; // Ambil userId dari params
+    const { rating } = req.body;
+
+    try {
+        // Periksa apakah rating restoran disediakan
+        if (!rating) {
+            return res.status(400).json({ message: 'Restaurant rating is required' });
+        }
+
+
+        // Periksa apakah userId yang diberikan valid
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Periksa apakah rating berada dalam rentang yang diizinkan
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ message: 'Restaurant rating should be between 1 and 5' });
+        }
+
+        // Simpan peringkat restoran pada user
+        user.restaurantRating = rating;
+        await user.save();
+
+        res.redirect('/main');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 

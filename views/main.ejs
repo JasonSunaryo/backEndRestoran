@@ -3,6 +3,7 @@
   <%- include('layout/Navbar') %>
 
     <article>
+
      
 
       <section class="hero text-center" aria-label="home" id="home">
@@ -108,9 +109,39 @@
         - #SERVICE
       -->
 
+
+    
       <section class="section service bg-black-10 text-center" aria-label="service">
         <div class="container">
-
+          
+      <h1 class="prating">Rate the Restaurant</h1>
+      <form action="/restaurantRating/<%= user._id %>" method="POST">
+          <div class="rating">
+              <input type="radio" id="star5" name="rating" value="5">
+              <label for="star5">☆</label>
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4">☆</label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3">☆</label>
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2">☆</label>
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1">☆</label>
+          </div>
+          <button class="prating" type="submit">Submit Rating</button>
+      </form>
+      <% if (user.restaurantRating) { %>
+    <p class="prating">Your Rating: <%= user.restaurantRating %> stars</p>
+<% } else { %>
+    <p class="prating">You have not rated the restaurant yet.</p>
+<% } %>
+<% if (averageRating) { %>
+  <p class="prating">Restaurant Rating: <%= averageRating.toFixed(1) %> stars</p>
+<% } else { %>
+  <p class="prating">No ratings yet.</p>
+<% } %>
+<br>
+<br>
           <p class="section-subtitle label-2">Flavors For Royalty</p>
 
           <h2 class="headline-1 section-title">We Offer Top Notch</h2>

@@ -2048,3 +2048,30 @@ opacity: 0;
 #totalPrice{
   text-align: center;
 }
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+}
+.rating input {
+  display: none;
+}
+.rating label {
+  display: inline-block;
+  padding: 5px;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+  color: #ffdd00;
+}
+
+.prating{
+  color: #ffffff;
+  text-align: center;
+  margin: auto;
+}
