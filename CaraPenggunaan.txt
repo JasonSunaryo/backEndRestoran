@@ -1,0 +1,7 @@
+1. Pertama-tama clone dahulu dengan git clone https://github.com/JasonSunaryo/backEndRestoran.git
+2. Pastikan di mongodb compass terdapat database dengan nama node_crud
+3. Pastikan pada databse nodecrud terdapat collection dengan nama menus,reservations,suggestions,users
+4. Pastikan anda berada pada directory yang sesuai di terminal
+5. Kita perlu menginstall ulang node modules jadi Ketik pada terminal Remove-Item -Recurse -Force node_modules 
+6. Ketik pada terminal npm install
+7. Ketik npm run start

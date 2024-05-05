@@ -2,13 +2,8 @@
   <%- include('layout/Header') %>
   <%- include('layout/Navbar') %>
 
-        <a href="/dashboard" class="hero-btn has-after">
-          <img src="/images/hero-icon.png" width="48" height="48" alt="booking icon">
 
-          <span class="label-2 text-center span">Change account</span>
-        </a>
-
-<!-- 
+  <!-- 
     - #MENU
   -->
   <section class="section menu" aria-label="menu-label" id="menu" ng-app="myApp" ng-controller="CounterController">
@@ -16,29 +11,43 @@
   
       <p class="section-subtitle text-center label-2">Dashboard Menu</p>
   
+      <a href="/dashboard" class="hero-btn has-after">
+        <span class="label-2 text-center span">Change account</span>
+      </a>
+    
       <a href="/add">Add Menu</a>
-  
+      <input type="text" id="searchInput" placeholder="Search Menu" class="search-input" oninput="search()">
+
+      <button id="sortButton1">Sort by Price</button>
+      <button id="sortButton2">Sort by Default</button>
+
+      <button class="btn-filter" id="filterButton">Filter Rp 20000 keatas</button>
+      <button class="btn-filter" id="offFilterButton">Off filter</button>
+      
+      <div class="tableTitle">
+      <h2 class="tableImage">Image</h2>
+      <h2 class="tableName">Name</h2>
+      <h2 class="tablePrice">Price</h2>
+      <h2 class="tableAction">Actions</h2>
+    </div>
+
+
       <% if (message) { %>
         <div class="alert alert-dismissable fade show alert-<%= message.type %>" role="alert">
           <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
           <strong><%= message.message %></strong>
         </div>
       <% } %>
-  
+
+
       <table class="table custom-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+        <tbody id="menuTableBody">
           <% menus.forEach((menu, index) => { %>
-            <tr>
-              <td>
-                <img id="menuImg"   class="card-bannerr img-holder" src="<%= menu.image %>" alt="Menu Image"></td>
+            <tr data-index="<%= index %>" >
+              
+              <td >
+                <img class="card-bannerr img-holder" src="<%= menu.image %>" alt="Menu Image"></td>
+    
               <td><%= menu.name %></td>
               <td>Rp <%= menu.price %></td>
               <td>
@@ -54,36 +63,124 @@
       <img src="/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-3 move-anim">
   
     </div>
-</section>
+  </section>
 
-  
   <h1 class="section-subtitle text-center label-2">All Customer Reservation</h1>
   <!-- Di dalam tag <ul> atau di tempat yang sesuai --> 
-    <ul class="feedbackList">
-<% reservations.forEach(reservation => { %>
-  <li>
-      <p><strong>Name : </strong> <%= reservation.name %></p>
-      <p><strong>Phone : </strong> <%= reservation.phone %></p>
-      <p><strong>Number of Persons : </strong> <%= reservation.person %></p>
-      <p><strong>Reservation Date : </strong> <%= reservation.reservationDate.toLocaleDateString() %></p>
-      <p><strong>Reservation Time : </strong> <%= reservation.reservationTime %></p>
-      <p><strong>Message : </strong> <%= reservation.message %></p>
-   
-  </li>
-  <br>
-<% }); %>
-</ul>  
+  <ul class="feedbackList">
+    <% reservations.forEach(reservation => { %>
+      <li>
+        <p><strong>Name : </strong> <%= reservation.name %></p>
+        <p><strong>Phone : </strong> <%= reservation.phone %></p>
+        <p><strong>Number of Persons : </strong> <%= reservation.person %></p>
+        <p><strong>Reservation Date : </strong> <%= reservation.reservationDate.toLocaleDateString() %></p>
+        <p><strong>Reservation Time : </strong> <%= reservation.reservationTime %></p>
+        <p><strong>Message : </strong> <%= reservation.message %></p>
+      </li>
+      <br>
+    <% }); %>
+  </ul>  
 
-    <%- include('layout/Footer') %>
-  </main>
-  <a href="#top" class="back-top-btn active" aria-label="back to top" data-back-top-btn>
-    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-  </a>
-  <script src="script.js"></script>
+  <%- include('layout/Footer') %>
+</main>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<a href="#top" class="back-top-btn active" aria-label="back to top" data-back-top-btn>
+  <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', searchMenu);
+
+  function searchMenu() {
+    const filter = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('.table.custom-table tbody tr');
+
+    rows.forEach(row => {
+      const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+      if (name.includes(filter)) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  let isAscending = true;
+
+  document.getElementById('filterButton').addEventListener('click', filterMenuByPrice);
+  document.getElementById('offFilterButton').addEventListener('click', removeFilter);
+
+  function removeFilter() {
+    const rows = document.querySelectorAll('.table.custom-table tbody tr');
+
+    rows.forEach(row => {
+      row.style.display = 'table-row';
+    });
+  }
+
+  function filterMenuByPrice() {
+    const rows = document.querySelectorAll('.table.custom-table tbody tr');
+  
+    rows.forEach(row => {
+      const price = parseInt(row.querySelector('td:nth-child(3)').textContent.replace('Rp ', '').replace(',', ''));
+
+      if (price <= 20000) {
+        row.style.display = 'none';
+      } else {
+        row.style.display = 'table-row';
+      }
+    });
+  }
+
+  function sortMenuByPrice() {
+    const rows = Array.from(document.querySelectorAll('.table.custom-table tbody tr'));
+    
+    rows.sort((a, b) => {
+        const priceA = parseInt(a.querySelector('td:nth-child(3)').textContent.replace('Rp ', '').replace(',', ''));
+        const priceB = parseInt(b.querySelector('td:nth-child(3)').textContent.replace('Rp ', '').replace(',', ''));
+        return isAscending ? priceA - priceB : priceB - priceA;
+    });
+
+    const menuTableBody = document.getElementById('menuTableBody');
+    menuTableBody.innerHTML = '';
+    rows.forEach(row => menuTableBody.appendChild(row));
+    
+    isAscending = !isAscending;
+}
+
+function sortMenuByDefault() {
+    const rows = Array.from(document.querySelectorAll('.table.custom-table tbody tr'));
+    
+    rows.sort((a, b) => {
+        const nameA = a.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        const nameB = b.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    const menuTableBody = document.getElementById('menuTableBody');
+    menuTableBody.innerHTML = '';
+    rows.forEach(row => menuTableBody.appendChild(row));
+    
+    isAscending = !isAscending;
+}
+
+// Event Listeners for Sorting Buttons
+document.getElementById('sortButton1').addEventListener('click', sortMenuByPrice);
+document.getElementById('sortButton2').addEventListener('click', sortMenuByDefault);
 
 
-  <link rel="stylesheet" href="css/style.css">
+</script>
+
+<%- include('layout/Footer') %>
+
+<a href="#top" class="back-top-btn active" aria-label="back to top" data-back-top-btn>
+  <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+</a>
+
+<link rel="stylesheet" href="css/style.css">
