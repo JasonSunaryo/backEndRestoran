@@ -6,8 +6,6 @@ const cookieParser = require('cookie-parser')
 app.use(cookieParser());
 const bodyParser = require('body-parser');
 
-
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -22,7 +20,6 @@ const requireAuth = (req, res, next) => {
             if (err) {
                 res.redirect('/login');
             } else {
-                req.user = decodedToken;
                 next();
             }
         });

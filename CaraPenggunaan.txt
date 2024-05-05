@@ -5,3 +5,9 @@
 5. Kita perlu menginstall ulang node modules jadi Ketik pada terminal Remove-Item -Recurse -Force node_modules 
 6. Ketik pada terminal npm install
 7. Ketik npm run start
+
+Kriteria Penilaian :
+4 CRUD (User, Reservation, Menu, Comment)
+5 Fitur (Rating, Total Harga, Search, Sort, Filter )
+5 modul 3rd party dari npm (multer, express, mongoose, bcrypt, dotenv)
+2 modul custom (requireAuth dan checkUser yang berada di authMiddlewares.js)
