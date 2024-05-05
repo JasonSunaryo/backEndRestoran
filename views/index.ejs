@@ -37,7 +37,8 @@
         <tbody>
           <% menus.forEach((menu, index) => { %>
             <tr>
-              <td><img class="card-bannerr img-holder" src="<%= menu.image %>" alt="Menu Image"></td>
+              <td>
+                <img id="menuImg"   class="card-bannerr img-holder" src="<%= menu.image %>" alt="Menu Image"></td>
               <td><%= menu.name %></td>
               <td>Rp <%= menu.price %></td>
               <td>

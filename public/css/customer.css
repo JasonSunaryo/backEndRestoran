@@ -2075,3 +2075,7 @@ opacity: 0;
   text-align: center;
   margin: auto;
 }
+
+.slider-bg{
+  opacity: 0.7;
+}
