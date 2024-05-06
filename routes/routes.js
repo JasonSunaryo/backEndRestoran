@@ -430,8 +430,8 @@ router.post('/restaurantRating/:userId', async (req, res) => {
         }
 
         // Simpan peringkat restoran pada user
-        user.restaurantRating = rating;
-        await user.save();
+        await User.updateOne({ _id: userId }, { restaurantRating: rating });
+      
 
         res.redirect('/main');
     } catch (error) {
