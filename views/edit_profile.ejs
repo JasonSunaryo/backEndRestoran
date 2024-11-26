@@ -1,197 +1,341 @@
-<%- include('partials/header');  -%>
-<button class="btn2" id="backBtn"><a href="/"  >Back</a></button>
-<img class="backgroundSignup" src="images/backgroundEdit.jpg" alt="background">
- <form action="/users/<%= user._id %>/updateName" method="POST">
-    <p class="welcome-message">Username : <%= user.name %></p>
-    <input type="text" name="name" value="<%= user.name %>">
-    <div class="container">
-    <button class="btn2" type="submit">Change name</button>
-</div>
-</form>
-
-<form id="change-password-form" action="/users/<%= user._id %>/changePassword" method="POST">
-    <input type="password" name="oldPassword" placeholder="Old Password">
-    <input type="password" name="newPassword" placeholder="New Password">
-    <div class="container">
-        <button type="button" class="toggle-password">Show Password</button>
-        <button class="btn2" type="submit">Change Password</button>
-      </div>
-
-   
-</form>
-
-
-<form id="change-profile-image-form" action="/users/<%= user._id %>/changeProfileImage" method="POST" enctype="multipart/form-data">
-    <div class="profile-image">
-        <img class="userimage" src="<%= user.profileImage %>" alt="Profile Image"> <!-- Menampilkan gambar profil -->
-
-    </div>
-    <input type="file" name="profileImage" accept="image/*">
-    <div class="container">
-        <button class="btn2" type="submit">Change Profile Image</button>
-      </div>
-      
- 
-    
-</form>
-
-
-<form id="delete-form" action="/users/<%= user._id %>/delete" method="POST">
-    <div class="container">
-        <button class="btn2" id="delbutton"type="submit">Delete Account</button>
-      </div>
-</form>
-
-<script>
-
-    const userId = '<%= user._id %>'; // Definisikan userId
-    
-    // Buat permintaan fetch ketika formulir disubmit
-    document.querySelector('form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Mendapatkan nilai yang dimasukkan oleh pengguna setelah formulir disubmit
-        const newName = document.querySelector('input[name="name"]').value;
-        
-        try {
-            const response = await fetch(`/users/${userId}/updateName?newName=${newName}`, {
-                method: 'POST',
-                // Other options like headers, body, etc.
-            });
-
-            // Periksa apakah respons berhasil
-            if (response.ok) {
-                // Muat ulang halaman
-                window.location.reload();
-            } else {
-                // Handle response jika diperlukan
-                console.error('Failed to update name. Status:', response.status);
-            }
-            
-        } catch (error) {
-            console.error('Error updating name:', error);
-            // Handle error jika diperlukan
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Edit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color-light: #8D6E63;
+            --primary-color-dark: #5D4037;
+            --secondary-color-light: #A1887F;
+            --secondary-color-dark: #6D4C41;
+            --background-color: #EFEBE9;
+            --text-color: #3E2723;
+            --text-color-light: #4E342E;
+            --accent-color: #D7CCC8;
+            --error-color: #B71C1C;
         }
-    })
 
-    document.getElementById('delete-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--background-color), #D7CCC8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .profile-edit-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(3px);
+        }
+
+        .profile-edit-container {
+            background: linear-gradient(to bottom right, 
+                rgba(255,255,255,0.9), 
+                rgba(255,255,255,0.7)
+            );
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.1),
+                0 5px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .profile-edit-back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-color-dark);
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-edit-back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .profile-edit-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .profile-edit-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-edit-input-group label {
+            margin-bottom: 8px;
+            color: var(--text-color-light);
+            font-weight: 500;
+        }
+
+        .profile-edit-input {
+            padding: 12px 15px;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            font-size: 16px;
+            background-color: rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .profile-edit-input:focus {
+            outline: none;
+            border-color: var(--primary-color-light);
+            box-shadow: 0 0 0 3px rgba(141,110,99,0.2);
+        }
+
+        .profile-edit-button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-edit-button {
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--primary-color-light), var(--primary-color-dark));
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-edit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .profile-edit-toggle-password {
+            background: none;
+            border: none;
+            color: var(--primary-color-dark);
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .profile-edit-toggle-password:hover {
+            color: var(--primary-color-light);
+        }
+
+        .profile-edit-image-preview {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(to right, var(--primary-color-light), var(--primary-color-dark));
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .profile-edit-danger-button {
+            background: linear-gradient(to right, #D32F2F, #B71C1C);
+        }
+
+        @media (max-width: 600px) {
+            .profile-edit-container {
+                width: 95%;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img class="profile-edit-background" src="images/backgroundEdit.jpg" alt="background">
+    
+    <div class="profile-edit-container">
+        <a href="/" class="profile-edit-back-link">← Back</a>
+
+        <form class="profile-edit-form" action="/users/<%= user._id %>/updateName" method="POST">
+            <div class="profile-edit-input-group">
+                <p class="profile-edit-username">Username: <%= user.name %></p>
+                <input type="text" name="name" value="<%= user.name %>" class="profile-edit-input">
+            </div>
+            <button type="submit" class="profile-edit-button">Change Name</button>
+        </form>
+
+        <form id="profile-edit-password-form" class="profile-edit-form" action="/users/<%= user._id %>/changePassword" method="POST">
+            <div class="profile-edit-input-group">
+                <input type="password" name="oldPassword" placeholder="Old Password" class="profile-edit-input">
+            </div>
+            <div class="profile-edit-input-group">
+                <input type="password" name="newPassword" placeholder="New Password" class="profile-edit-input">
+            </div>
+            <div class="profile-edit-button-group">
+                <button type="button" class="profile-edit-toggle-password">Show Password</button>
+                <button type="submit" class="profile-edit-button">Change Password</button>
+            </div>
+        </form>
+
+        <form id="profile-edit-image-form" class="profile-edit-form" action="/users/<%= user._id %>/changeProfileImage" method="POST" enctype="multipart/form-data">
+            <div class="profile-edit-input-group">
+                <img class="profile-edit-image-preview" src="<%= user.profileImage %>" alt="Profile Image">
+                <input type="file" name="profileImage" accept="image/*" class="profile-edit-input">
+            </div>
+            <button type="submit" class="profile-edit-button">Change Profile Image</button>
+        </form>
+
+        <form id="profile-edit-delete-form" class="profile-edit-form" action="/users/<%= user._id %>/delete" method="POST">
+            <button type="submit" class="profile-edit-button profile-edit-danger-button">Delete Account</button>
+        </form>
+    </div>
+
+    <script>
+        const userId = '<%= user._id %>';
         
-        const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
-        
-        if (confirmation) {
+        // Name update handler
+        document.querySelector('.profile-edit-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const newName = document.querySelector('input[name="name"]').value;
+            
             try {
-                const response = await fetch(`/users/${userId}/delete`, {
-                    method: 'DELETE',
-                    // Other options like headers, body, etc.
+                const response = await fetch(`/users/${userId}/updateName?newName=${newName}`, {
+                    method: 'POST',
                 });
 
-                // Periksa apakah respons berhasil
                 if (response.ok) {
-                    // Hapus cookie JWT
-                    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                    // Redirect ke halaman sign in
-                    window.location.href = '/login';
+                    window.location.reload();
                 } else {
-                    // Handle response jika diperlukan
-                    console.error('Failed to delete account. Status:', response.status);
+                    console.error('Failed to update name. Status:', response.status);
                 }
                 
             } catch (error) {
-                console.error('Error deleting account:', error);
-                // Handle error jika diperlukan
+                console.error('Error updating name:', error);
             }
-        } else {
-            // Jika pengguna membatalkan penghapusan, tidak ada yang perlu dilakukan
-            console.log("Account deletion canceled.");
-        }
-    });
-
-    document.getElementById('change-profile-image-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append('profileImage', document.querySelector('input[name="profileImage"]').files[0]);
-    
-    try {
-        const response = await fetch(`/users/${userId}/changeProfileImage`, {
-            method: 'POST',
-            body: formData,
         });
 
-        // Periksa apakah respons berhasil
-        if (response.ok) {
-            // Muat ulang halaman
-            window.location.reload();
-        } else {
-            // Handle response jika diperlukan
-            console.error('Failed to change profile image. Status:', response.status);
-        }
-        
-    } catch (error) {
-        console.error('Error changing profile image:', error);
-        // Handle error jika diperlukan
-    }
-});
+        // Delete account handler
+        document.getElementById('profile-edit-delete-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+            
+            if (confirmation) {
+                try {
+                    const response = await fetch(`/users/${userId}/delete`, {
+                        method: 'DELETE',
+                    });
 
-document.getElementById('change-password-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const oldPassword = document.querySelector('input[name="oldPassword"]').value;
-    const newPassword = document.querySelector('input[name="newPassword"]').value;
-        
-    try {
-        const response = await fetch(`/users/${userId}/changePassword`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ oldPassword, newPassword }),
+                    if (response.ok) {
+                        document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                        window.location.href = '/login';
+                    } else {
+                        console.error('Failed to delete account. Status:', response.status);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error deleting account:', error);
+                }
+            }
         });
 
-        if (response.ok) {
-            // If the response is successful, reload the page
-            window.location.reload();
-        } else {
-            // If the response is not successful, parse the error response
-            const data = await response.json();
-            if (data.errors && data.errors.password) {
-                // If there is an error related to the password, display it
-                document.getElementById('password-error').textContent = data.errors.password;
+        // Profile image change handler
+        document.getElementById('profile-edit-image-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('profileImage', document.querySelector('input[name="profileImage"]').files[0]);
+            
+            try {
+                const response = await fetch(`/users/${userId}/changeProfileImage`, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to change profile image. Status:', response.status);
+                }
+                
+            } catch (error) {
+                console.error('Error changing profile image:', error);
+            }
+        });
+
+        // Password change handler
+        document.getElementById('profile-edit-password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const oldPassword = document.querySelector('input[name="oldPassword"]').value;
+            const newPassword = document.querySelector('input[name="newPassword"]').value;
+                
+            try {
+                const response = await fetch(`/users/${userId}/changePassword`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ oldPassword, newPassword }),
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    const data = await response.json();
+                    if (data.errors && data.errors.password) {
+                        document.getElementById('password-error').textContent = data.errors.password;
+                    } else {
+                        console.error('Failed to change password. Status:', response.status);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error changing password:', error);
+            }
+        });
+
+        // Password visibility toggle
+        const oldPasswordInput = document.querySelector('input[name="oldPassword"]');
+        const newPasswordInput = document.querySelector('input[name="newPassword"]');
+        const togglePasswordButton = document.querySelector('.profile-edit-toggle-password');
+
+        togglePasswordButton.addEventListener('click', function () {
+            if (this.textContent === "Show Password") {
+                oldPasswordInput.type = "text";
+                newPasswordInput.type = "text";
+                this.textContent = "Hide";
             } else {
-                // If there is no specific password error, log the response status
-                console.error('Failed to change password. Status:', response.status);
+                oldPasswordInput.type = "password";
+                newPasswordInput.type = "password";
+                this.textContent = "Show Password";
             }
-        }
-        
-    } catch (error) {
-        console.error('Error changing password:', error);
-        // Handle other errors if necessary
-    }
-});
-const oldPasswordInput = document.querySelector('input[name="oldPassword"]');
-const newPasswordInput = document.querySelector('input[name="newPassword"]');
-const togglePasswordButtons = document.querySelectorAll('.toggle-password');
-
-togglePasswordButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        if (this.textContent === "Show Password") {
-            oldPasswordInput.type = "text";
-            newPasswordInput.type = "text";
-            this.textContent = "Hide";
-        } else {
-            oldPasswordInput.type = "password";
-            newPasswordInput.type = "password";
-            this.textContent = "Show Password";
-        }
-    });
-});
-
-
-    
-</script>
-
-
-
+        });
+    </script>
 </body>
 </html>

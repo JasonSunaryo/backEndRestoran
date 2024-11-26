@@ -1,19 +1,186 @@
-<%- include('partials/header');  -%>
-<img class="backgroundSignup" src="images/backgroundDashboard.jpg" alt="background">
-<div class="profile-container">
-    <p class="welcome-message">Welcome <%= user.name %></p>
-    <div class="profile-image">
-        <img src="<%= user.profileImage %>" alt="Profile Image"> <!-- Menampilkan gambar profil -->
-        <p class="welcome-message">Role : <%= user.role %></p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color-light: #8D6E63;
+            --primary-color-dark: #5D4037;
+            --secondary-color-light: #A1887F;
+            --secondary-color-dark: #6D4C41;
+            --background-color: #EFEBE9;
+            --text-color: #3E2723;
+            --text-color-light: #4E342E;
+            --accent-color: #D7CCC8;
+            --button-text-color: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--background-color), #D7CCC8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(3px);
+        }
+
+        .dashboard-container {
+            background: linear-gradient(to bottom right, 
+                rgba(255,255,255,0.9), 
+                rgba(255,255,255,0.7)
+            );
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.1),
+                0 5px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .dashboard-welcome-title {
+            color: var(--primary-color-dark);
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .dashboard-profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-profile-image {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(to right, var(--primary-color-light), var(--primary-color-dark));
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .dashboard-role-text {
+            color: var(--text-color-light);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dashboard-button {
+            background: linear-gradient(to right, var(--primary-color-light), var(--primary-color-dark));
+            color: var(--button-text-color);
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .dashboard-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-button a {
+            color: var(--button-text-color);
+            text-decoration: none;
+        }
+
+        .dashboard-logout-button {
+            background: linear-gradient(to right, #D32F2F, #B71C1C);
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-container {
+                width: 95%;
+                padding: 25px;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <img class="dashboard-background" src="<%= user.backgroundImage || 'images/backgroundDashboard.jpg' %>" alt="Background">
+    
+    <div class="dashboard-container">
+        <h1 class="dashboard-welcome-title">Welcome, <%= user.name %></h1>
+        
+        <div class="dashboard-profile-section">
+            <img class="dashboard-profile-image" src="<%= user.profileImage %>" alt="Profile Image">
+            <p class="dashboard-role-text">Role: <%= user.role %></p>
+        </div>
+        
+        <div class="dashboard-action-buttons">
+            <button class="dashboard-button dashboard-logout-button">
+                <a href="/logout">Log out</a>
+            </button>
+            
+            <button class="dashboard-button">
+                <a href="/profile?id=<%= user._id %>">Edit Profile</a>
+            </button>
+            
+            <% if (user.role === 'customer') { %>
+                <button class="dashboard-button">
+                    <a href="/main">Continue</a>
+                </button>
+            <% } if (user.role === 'admin') { %>
+                <button class="dashboard-button">
+                    <a href="/index">Continue</a>
+                </button>
+            <% } %>
+        </div>
     </div>
-    <div class="buttons">
-        <button class="logout-button"><a href="/logout">Log out</a></button>
-        <button class="edit-profile-button"><a href="/profile?id=<%= user._id%>">Edit Profile</a></button>
-        <% if (user.role === 'customer') { %>
-            <button class="continue-button"><a href="/main">Continue</a></button>
-        <% }  if (user.role === 'admin') { %>
-            <button class="continue-button"><a href="/index">Continue</a></button>
-        <% } %>
-    </div>
-</div>
+</body>
+</html>
 
